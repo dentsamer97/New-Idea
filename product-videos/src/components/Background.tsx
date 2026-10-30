@@ -1,14 +1,15 @@
 import React from "react";
 import { AbsoluteFill, useCurrentFrame } from "remotion";
-import type { Product } from "../schema";
+import type { Theme } from "../themes";
 
-// خلفية داكنة بلون المنتج مع بقع ضوء بتتحرك ببطء
-export const Background: React.FC<{ theme: Product["theme"] }> = ({ theme }) => {
+// خلفية القالب مع بقع ضوء بتتحرك ببطء
+export const Background: React.FC<{ theme: Theme }> = ({ theme }) => {
   const frame = useCurrentFrame();
   const drift = Math.sin(frame / 40) * 60;
+  const strength = theme.isDark ? "55" : "26";
 
   return (
-    <AbsoluteFill style={{ backgroundColor: theme.dark, overflow: "hidden" }}>
+    <AbsoluteFill style={{ background: theme.bg, overflow: "hidden" }}>
       <div
         style={{
           position: "absolute",
@@ -17,7 +18,7 @@ export const Background: React.FC<{ theme: Product["theme"] }> = ({ theme }) => 
           borderRadius: "50%",
           top: -350 + drift,
           right: -400,
-          background: `radial-gradient(circle, ${theme.primary}88 0%, transparent 65%)`,
+          background: `radial-gradient(circle, ${theme.primary}${strength} 0%, transparent 65%)`,
         }}
       />
       <div
@@ -28,7 +29,7 @@ export const Background: React.FC<{ theme: Product["theme"] }> = ({ theme }) => 
           borderRadius: "50%",
           bottom: -380 - drift,
           left: -380,
-          background: `radial-gradient(circle, ${theme.accent}33 0%, transparent 65%)`,
+          background: `radial-gradient(circle, ${theme.accent}${strength} 0%, transparent 65%)`,
         }}
       />
     </AbsoluteFill>

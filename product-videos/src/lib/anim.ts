@@ -1,4 +1,6 @@
+import type React from "react";
 import { Easing, interpolate, spring } from "remotion";
+import type { Theme } from "../themes";
 
 const clamp = {
   extrapolateLeft: "clamp",
@@ -19,3 +21,39 @@ export const pop = (frame: number, fps: number, start: number) =>
     fps,
     config: { damping: 11, stiffness: 170, mass: 0.8 },
   });
+
+// blurIn: الكلام بيظهر من ضباب لحد ما يوضح
+export const blurIn = (frame: number, start: number, duration = 14): React.CSSProperties => {
+  const p = enter(frame, start, duration);
+  return {
+    opacity: p,
+    filter: p < 1 ? `blur(${(1 - p) * 18}px)` : undefined,
+    scale: String(interpolate(p, [0, 1], [1.08, 1])),
+  };
+};
+
+// حركة ظهور الكلام حسب القالب: rise (طالع لفوق)، blur (من ضباب)، pop (نطة)
+// visibleAtStart: ظاهر من أول فريم (للهوك، عشان أول فريم في الفيديو ميبقاش فاضي)
+export const entrance = (
+  theme: Theme,
+  frame: number,
+  fps: number,
+  start: number,
+  visibleAtStart = false,
+): React.CSSProperties => {
+  if (visibleAtStart) {
+    const settle = enter(frame, 0, 12);
+    return { scale: String(interpolate(settle, [0, 1], [1.06, 1])) };
+  }
+  switch (theme.styles.entrance) {
+    case "blur":
+      return blurIn(frame, start);
+    case "pop":
+      return { scale: String(pop(frame, fps, start)) };
+    default:
+      return {
+        opacity: enter(frame, start, 10),
+        translate: `0px ${interpolate(enter(frame, start, 14), [0, 1], [40, 0])}px`,
+      };
+  }
+};

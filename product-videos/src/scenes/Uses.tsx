@@ -1,9 +1,9 @@
 import React from "react";
-import { AbsoluteFill, interpolate, useCurrentFrame, useVideoConfig } from "remotion";
+import { AbsoluteFill, useCurrentFrame, useVideoConfig } from "remotion";
 import { Icon } from "../components/Icon";
-import { Media } from "../components/Media";
+import { BlurredMedia } from "../components/BlurredMedia";
 import { Scene } from "../components/Scene";
-import { enter, pop } from "../lib/anim";
+import { entrance, pop } from "../lib/anim";
 import { mediaFor } from "../lib/media";
 import type { AdContent } from "../schema";
 
@@ -13,11 +13,9 @@ export const Uses: React.FC<{ content: AdContent }> = ({ content }) => {
   const { theme } = content;
 
   const background = (
-    <AbsoluteFill style={{ backgroundColor: theme.dark }}>
-      <AbsoluteFill style={{ filter: "blur(14px)", scale: "1.15" }}>
-        <Media media={mediaFor(content, { kind: "lifestyle" })!} zoom={[1, 1.15]} />
-      </AbsoluteFill>
-      <AbsoluteFill style={{ background: `${theme.dark}C8` }} />
+    <AbsoluteFill>
+      <BlurredMedia media={mediaFor(content, { kind: "lifestyle" })!} />
+      <AbsoluteFill style={{ background: theme.isDark ? "rgba(0,0,0,0.66)" : "rgba(255,255,255,0.74)" }} />
     </AbsoluteFill>
   );
 
@@ -30,8 +28,8 @@ export const Uses: React.FC<{ content: AdContent }> = ({ content }) => {
           fontWeight: 900,
           textAlign: "center",
           lineHeight: 1.2,
-          opacity: enter(frame, 0, 10),
-          translate: `0px ${interpolate(enter(frame, 0, 14), [0, 1], [40, 0])}px`,
+          fontFamily: theme.fonts.heading,
+          ...entrance(theme, frame, fps, 0),
         }}
       >
         {content.usesTitle}
@@ -50,8 +48,8 @@ export const Uses: React.FC<{ content: AdContent }> = ({ content }) => {
             style={{
               height: 330,
               borderRadius: 44,
-              background: "rgba(255,255,255,0.12)",
-              border: "2px solid rgba(255,255,255,0.22)",
+              background: theme.surface,
+              border: `2px solid ${theme.border}`,
               display: "flex",
               flexDirection: "column",
               alignItems: "center",

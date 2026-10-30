@@ -1,11 +1,10 @@
 import React from "react";
 import { Easing, interpolate, useCurrentFrame, useVideoConfig } from "remotion";
-import { Icon } from "../components/Icon";
+import { CodBadge, CornerRibbon, Price } from "../components/boxes";
 import { PhotoCard } from "../components/PhotoCard";
 import { Pill } from "../components/Pill";
 import { Scene } from "../components/Scene";
 import { enter, pop } from "../lib/anim";
-import { formatNumber, getCurrencyLabel } from "../lib/format";
 import { productImage } from "../lib/media";
 import type { AdContent } from "../schema";
 
@@ -26,78 +25,23 @@ export const Offer: React.FC<{ content: AdContent }> = ({ content }) => {
 
   return (
     <Scene theme={theme}>
-      <div style={{ display: "flex", flexDirection: "column", alignItems: "center" }}>
+      {content.limited ? <CornerRibbon text={content.limited} /> : null}
+      <div style={{ display: "flex", flexDirection: "column", alignItems: "center", gap: 40 }}>
         <div style={{ scale: String(pop(frame, fps, 0)) }}>
-          <PhotoCard media={productImage(content)} width={420} height={600} />
+          <PhotoCard media={productImage(content)} theme={theme} width={420} height={600} />
         </div>
-
-        {content.oldPrice ? (
-          <div
-            style={{
-              marginTop: 40,
-              fontSize: 64,
-              fontWeight: 700,
-              color: "rgba(255,255,255,0.6)",
-              textDecoration: "line-through",
-              opacity: enter(frame, 6, 10),
-            }}
-          >
-            {formatNumber(content.oldPrice)} {getCurrencyLabel(content.currency)}
-          </div>
-        ) : null}
-
-        <div
-          style={{
-            marginTop: content.oldPrice ? 0 : 50,
-            display: "flex",
-            alignItems: "baseline",
-            gap: 24,
-            color: theme.accent,
-            opacity: enter(frame, 6, 8),
-          }}
-        >
-          <span style={{ fontSize: 180, fontWeight: 900, lineHeight: 1.1 }}>
-            {formatNumber(counted)}
-          </span>
-          <span style={{ fontSize: 80, fontWeight: 800 }}>{getCurrencyLabel(content.currency)}</span>
+        <div style={{ opacity: enter(frame, 6, 8) }}>
+          <Price theme={theme} content={content} value={counted} />
         </div>
-
         {content.offer ? (
-          <Pill
-            background={theme.accent}
-            color={theme.dark}
-            fontSize={56}
-            style={{ marginTop: 20, scale: String(pop(frame, fps, 30)) }}
-          >
+          <Pill background={theme.accent} color={theme.onAccent} fontSize={56} style={{ scale: String(pop(frame, fps, 30)) }}>
             {content.offer}
           </Pill>
         ) : null}
-
-        <div
-          style={{
-            marginTop: 50,
-            display: "flex",
-            alignItems: "center",
-            gap: 30,
-            padding: "34px 56px",
-            borderRadius: 40,
-            background: "#16A34A",
-            boxShadow: "0 24px 60px rgba(22,163,74,0.45)",
-            scale: String(pop(frame, fps, 38)),
-          }}
-        >
-          <Icon name="cash" size={96} color="white" strokeWidth={2} />
-          <div style={{ fontSize: 70, fontWeight: 900 }}>الدفع عند الاستلام</div>
+        <div style={{ scale: String(pop(frame, fps, 38)) }}>
+          <CodBadge theme={theme} />
         </div>
-        <div
-          style={{
-            marginTop: 26,
-            fontSize: 48,
-            fontWeight: 600,
-            color: "rgba(255,255,255,0.85)",
-            opacity: enter(frame, 50, 10),
-          }}
-        >
+        <div style={{ fontSize: 48, fontWeight: 600, color: theme.muted, opacity: enter(frame, 50, 10) }}>
           تستلم طلبك وبعدين تدفع
         </div>
       </div>

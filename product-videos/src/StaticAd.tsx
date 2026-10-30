@@ -1,13 +1,13 @@
 import React from "react";
+import { CodBadge, CornerRibbon, HotWord, Label, Price } from "./components/boxes";
 import { Icon } from "./components/Icon";
 import { PhotoCard } from "./components/PhotoCard";
-import { Pill } from "./components/Pill";
 import { Scene } from "./components/Scene";
-import { formatNumber, getCurrencyLabel } from "./lib/format";
 import { isHighlighted } from "./lib/highlight";
 import { productImage } from "./lib/media";
 import { resolveAd } from "./lib/resolve";
 import type { AdProps } from "./schema";
+import { SUCCESS } from "./themes";
 
 // إعلان صورة ثابتة: الهوك + المنتج + أهم 3 مميزات + السعر + زرار الطلب
 export const StaticAd: React.FC<AdProps> = (props) => {
@@ -16,29 +16,31 @@ export const StaticAd: React.FC<AdProps> = (props) => {
 
   return (
     <Scene theme={theme}>
-      <div style={{ height: "100%", display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "center" }}>
-        <Pill background={theme.accent} color={theme.dark} fontSize={54}>
+      {content.limited ? <CornerRibbon text={content.limited} /> : null}
+      <div style={{ height: "100%", display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "center", gap: 0 }}>
+        <Label theme={theme} size={54}>
           {hook.top}
-        </Pill>
+        </Label>
         <div
           style={{
             marginTop: 24,
             fontSize: 96,
             fontWeight: 900,
-            lineHeight: 1.2,
+            lineHeight: 1.25,
             textAlign: "center",
             textWrap: "balance",
+            fontFamily: theme.fonts.heading,
           }}
         >
           {hook.main.split(" ").map((word, i) => (
-            <span key={i} style={{ color: isHighlighted(word, hook.highlight) ? theme.accent : "white" }}>
-              {word}{" "}
-            </span>
+            <React.Fragment key={i}>
+              {isHighlighted(word, hook.highlight) ? <HotWord theme={theme}>{word}</HotWord> : word}{" "}
+            </React.Fragment>
           ))}
         </div>
 
         <div style={{ marginTop: 40, display: "flex", alignItems: "center", gap: 32 }}>
-          <PhotoCard media={productImage(content)} width={440} height={640} />
+          <PhotoCard media={productImage(content)} theme={theme} width={400} height={560} />
           <div style={{ display: "flex", flexDirection: "column", gap: 30 }}>
             {content.features.slice(0, 3).map((feature) => (
               <div key={feature.id} style={{ display: "flex", alignItems: "center", gap: 18 }}>
@@ -48,65 +50,51 @@ export const StaticAd: React.FC<AdProps> = (props) => {
                     width: 64,
                     height: 64,
                     borderRadius: "50%",
-                    background: "#22C55E",
+                    background: theme.accent,
                     display: "flex",
                     alignItems: "center",
                     justifyContent: "center",
                   }}
                 >
-                  <Icon name="check" size={40} color="white" strokeWidth={3.2} />
+                  <Icon name={feature.icon} size={38} color={theme.onAccent} strokeWidth={2.4} />
                 </div>
-                <div style={{ fontSize: 46, fontWeight: 800, lineHeight: 1.25, whiteSpace: "nowrap" }}>
-                  {feature.title}
-                </div>
+                <div style={{ fontSize: 46, fontWeight: 800, lineHeight: 1.25, whiteSpace: "nowrap" }}>{feature.title}</div>
               </div>
             ))}
           </div>
         </div>
 
-        <div style={{ marginTop: 50, display: "flex", alignItems: "baseline", gap: 20, color: theme.accent }}>
-          <span style={{ fontSize: 150, fontWeight: 900, lineHeight: 1.1 }}>{formatNumber(content.price)}</span>
-          <span style={{ fontSize: 68, fontWeight: 800 }}>{getCurrencyLabel(content.currency)}</span>
+        <div style={{ marginTop: 36, flexShrink: 0 }}>
+          <Price theme={theme} content={content} value={content.price} size={130} />
         </div>
-        {content.offer ? (
-          <Pill background={theme.accent} color={theme.dark} fontSize={50} style={{ marginTop: 10 }}>
-            {content.offer}
-          </Pill>
-        ) : null}
 
         <div
           style={{
-            marginTop: 36,
+            marginTop: 30,
+            flexShrink: 0,
             display: "flex",
             alignItems: "center",
             justifyContent: "center",
             gap: 24,
             width: 820,
-            height: 170,
+            height: 150,
             borderRadius: 999,
-            background: "#22C55E",
-            boxShadow: "0 24px 60px rgba(34,197,94,0.45)",
-            fontSize: 84,
+            background: SUCCESS,
+            color: "white",
+            boxShadow: "0 24px 60px rgba(22,163,74,0.4)",
+            fontSize: 80,
             fontWeight: 900,
+            fontFamily: theme.fonts.heading,
           }}
         >
-          <Icon name="cart" size={88} color="white" strokeWidth={2.2} />
+          <Icon name="shopping-cart" size={84} color="white" strokeWidth={2.2} />
           {content.cta.button}
         </div>
-        <div
-          style={{
-            marginTop: 28,
-            display: "flex",
-            alignItems: "center",
-            gap: 18,
-            fontSize: 60,
-            fontWeight: 800,
-            color: "#4ADE80",
-          }}
-        >
-          <Icon name="cash" size={68} color="#4ADE80" />
-          الدفع عند الاستلام
-        </div>
+        {theme.styles.badge === "burst" ? null : (
+          <div style={{ marginTop: 26, flexShrink: 0 }}>
+            <CodBadge theme={theme} size={52} />
+          </div>
+        )}
       </div>
     </Scene>
   );

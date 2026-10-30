@@ -1,9 +1,10 @@
 import React from "react";
 import { interpolate, Series, useCurrentFrame, useVideoConfig } from "remotion";
+import { Counter } from "../components/boxes";
 import { Icon } from "../components/Icon";
 import { PhotoCard } from "../components/PhotoCard";
 import { Scene } from "../components/Scene";
-import { enter, pop } from "../lib/anim";
+import { entrance, enter, pop } from "../lib/anim";
 import { mediaFor, type MediaRef } from "../lib/media";
 import type { AdContent, Feature } from "../schema";
 
@@ -20,18 +21,8 @@ export const FeatureCard: React.FC<{
   return (
     <Scene theme={theme}>
       <div style={{ display: "flex", flexDirection: "column", alignItems: "center" }}>
-        <div style={{ display: "flex", gap: 14, marginBottom: 50 }}>
-          {Array.from({ length: count }).map((_, i) => (
-            <div
-              key={i}
-              style={{
-                width: i === index ? 70 : 22,
-                height: 22,
-                borderRadius: 11,
-                background: i === index ? theme.accent : "rgba(255,255,255,0.3)",
-              }}
-            />
-          ))}
+        <div style={{ marginBottom: 50 }}>
+          <Counter theme={theme} index={index} count={count} />
         </div>
         <div
           style={{
@@ -39,7 +30,7 @@ export const FeatureCard: React.FC<{
             translate: `${interpolate(enter(frame, 0, 16), [0, 1], [-200, 0])}px 0px`,
           }}
         >
-          <PhotoCard media={media} width={760} height={720} />
+          <PhotoCard media={media} theme={theme} width={760} height={720} />
         </div>
         <div
           style={{
@@ -48,14 +39,14 @@ export const FeatureCard: React.FC<{
             height: 150,
             borderRadius: "50%",
             background: theme.accent,
-            border: `8px solid ${theme.dark}`,
+            border: `8px solid ${theme.isDark ? "#00000055" : "#FFFFFF"}`,
             display: "flex",
             alignItems: "center",
             justifyContent: "center",
             scale: String(pop(frame, fps, 6)),
           }}
         >
-          <Icon name={feature.icon} size={84} color={theme.dark} strokeWidth={2.2} />
+          <Icon name={feature.icon} size={84} color={theme.onAccent} strokeWidth={2.2} />
         </div>
         <div
           style={{
@@ -64,8 +55,8 @@ export const FeatureCard: React.FC<{
             fontWeight: 900,
             lineHeight: 1.2,
             textAlign: "center",
-            opacity: enter(frame, 10, 10),
-            translate: `0px ${interpolate(enter(frame, 10, 14), [0, 1], [40, 0])}px`,
+            fontFamily: theme.fonts.heading,
+            ...entrance(theme, frame, fps, 10),
           }}
         >
           {feature.title}
@@ -77,7 +68,7 @@ export const FeatureCard: React.FC<{
             fontWeight: 600,
             lineHeight: 1.45,
             textAlign: "center",
-            color: "rgba(255,255,255,0.88)",
+            color: theme.muted,
             textWrap: "balance",
             opacity: enter(frame, 16, 10),
           }}

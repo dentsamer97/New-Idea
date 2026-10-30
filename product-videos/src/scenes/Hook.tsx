@@ -1,57 +1,43 @@
 import React from "react";
 import { interpolate, useCurrentFrame, useVideoConfig } from "remotion";
+import { HotWord, Label } from "../components/boxes";
 import { PhotoCard } from "../components/PhotoCard";
-import { Pill } from "../components/Pill";
 import { Scene } from "../components/Scene";
-import { enter, pop } from "../lib/anim";
+import { enter, entrance } from "../lib/anim";
 import { isHighlighted } from "../lib/highlight";
 import { mediaFor } from "../lib/media";
 import type { AdContent } from "../schema";
 
+// الهوك ظاهر من أول فريم: أول فريم هو صورة الفيديو قبل ما يشتغل
 export const Hook: React.FC<{ content: AdContent }> = ({ content }) => {
   const frame = useCurrentFrame();
   const { fps } = useVideoConfig();
   const { theme, hook } = content;
-  const words = hook.main.split(" ");
 
   return (
     <Scene theme={theme}>
       <div style={{ display: "flex", flexDirection: "column", alignItems: "center", gap: 40 }}>
-        <Pill
-          background={theme.accent}
-          color={theme.dark}
-          fontSize={60}
-          style={{ scale: String(pop(frame, fps, 0)) }}
-        >
-          {hook.top}
-        </Pill>
+        <div style={entrance(theme, frame, fps, 0, true)}>
+          <Label theme={theme} size={60}>
+            {hook.top}
+          </Label>
+        </div>
         <div
           style={{
             fontSize: 112,
             fontWeight: 900,
-            lineHeight: 1.25,
+            lineHeight: 1.3,
             textAlign: "center",
-            textShadow: "0 8px 30px rgba(0,0,0,0.35)",
+            textWrap: "balance",
+            fontFamily: theme.fonts.heading,
+            ...entrance(theme, frame, fps, 0, true),
           }}
         >
-          {words.map((word, i) => {
-            const start = 8 + i * 4;
-            const isHot = isHighlighted(word, hook.highlight);
-            return (
-              <span
-                key={i}
-                style={{
-                  display: "inline-block",
-                  marginInline: 14,
-                  color: isHot ? theme.accent : "white",
-                  opacity: enter(frame, start, 8),
-                  translate: `0px ${interpolate(enter(frame, start, 10), [0, 1], [40, 0])}px`,
-                }}
-              >
-                {word}
-              </span>
-            );
-          })}
+          {hook.main.split(" ").map((word, i) => (
+            <React.Fragment key={i}>
+              {isHighlighted(word, hook.highlight) ? <HotWord theme={theme}>{word}</HotWord> : word}{" "}
+            </React.Fragment>
+          ))}
         </div>
       </div>
       <div
@@ -62,11 +48,10 @@ export const Hook: React.FC<{ content: AdContent }> = ({ content }) => {
           right: 0,
           display: "flex",
           justifyContent: "center",
-          opacity: enter(frame, 18, 12),
-          translate: `0px ${interpolate(enter(frame, 18, 20), [0, 1], [300, 0])}px`,
+          translate: `0px ${interpolate(enter(frame, 0, 18), [0, 1], [60, 0])}px`,
         }}
       >
-        <PhotoCard media={mediaFor(content, { kind: "hook" })!} width={600} height={880} />
+        <PhotoCard media={mediaFor(content, { kind: "hook" })!} theme={theme} width={600} height={880} />
       </div>
     </Scene>
   );

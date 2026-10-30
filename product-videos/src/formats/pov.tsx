@@ -3,20 +3,22 @@ import type { AdContent } from "../schema";
 import { Cta } from "../scenes/Cta";
 import { Offer } from "../scenes/Offer";
 import { Shot } from "./Shot";
-import { END_FRAMES, type BuiltAd } from "./types";
+import { TIMING } from "../lib/timing";
+import type { BuiltAd } from "./types";
 
 // POV: «POV: لما تكون...» في بوكس أبيض فوق، ولقطات سريعة للمنتج
 export const buildPov = (content: AdContent): BuiltAd => {
   const { theme, hook } = content;
   const povLine = content.angle.pov ?? `لما تكون الوحيد اللي جايب ${content.name}`;
-  const features = content.features.slice(0, 4);
+  const t = TIMING.pov;
+  const features = content.features.slice(0, t.maxFeatures);
 
   return {
     cuts: true,
     scenes: [
       {
         name: "Hook",
-        frames: 75,
+        frames: t.hook,
         el: (
           <Shot
             media={mediaFor(content, { kind: "hook" })!}
@@ -24,19 +26,20 @@ export const buildPov = (content: AdContent): BuiltAd => {
             label={hook.top}
             caption={hook.main}
             highlight={hook.highlight}
+            visibleAtStart
           />
         ),
       },
       {
         name: "POV",
-        frames: 90,
+        frames: t.pov,
         el: (
           <Shot media={mediaFor(content, { kind: "lifestyle" })!} theme={theme} prefix="POV:" caption={povLine} position="top" />
         ),
       },
       ...features.map((feature, i) => ({
         name: feature.title,
-        frames: 45,
+        frames: t.feature,
         el: (
           <Shot
             media={mediaFor(content, { kind: "feature", featureId: feature.id, image: feature.image }, i)!}
@@ -46,8 +49,8 @@ export const buildPov = (content: AdContent): BuiltAd => {
           />
         ),
       })),
-      { name: "Offer", frames: END_FRAMES.offer, el: <Offer content={content} /> },
-      { name: "Cta", frames: END_FRAMES.cta, el: <Cta content={content} /> },
+      { name: "Offer", frames: TIMING.end.offer, el: <Offer content={content} /> },
+      { name: "Cta", frames: TIMING.end.cta, el: <Cta content={content} /> },
     ],
   };
 };

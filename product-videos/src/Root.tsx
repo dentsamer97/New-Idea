@@ -4,7 +4,7 @@ import { calculateAdMetadata, ProductAd } from "./ProductAd";
 import { StaticAd } from "./StaticAd";
 import { defaultAds } from "./lib/plan";
 import { resolveAd } from "./lib/resolve";
-import { FORMAT_TIMING, FPS, HEIGHT, sceneDurations, totalDuration, WIDTH } from "./lib/timing";
+import { FPS, HEIGHT, sceneDurations, TIMING, totalDuration, WIDTH } from "./lib/timing";
 import { products } from "./products";
 import { adSchema } from "./schema";
 import { Cta } from "./scenes/Cta";
@@ -66,7 +66,7 @@ export const RemotionRoot: React.FC = () => {
         <Composition
           id="Scene-Features"
           component={Features}
-          defaultProps={{ content, featureFrames: FORMAT_TIMING.showcase.feature }}
+          defaultProps={{ content, featureFrames: TIMING.showcase.feature }}
           durationInFrames={d.features}
           {...size}
         />

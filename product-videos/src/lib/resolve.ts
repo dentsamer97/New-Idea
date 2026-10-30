@@ -1,5 +1,19 @@
 import { products } from "../products";
 import { formats, type AdContent, type AdProps, type Product } from "../schema";
+import { autoTheme, themes, type Theme, type ThemeId } from "../themes";
+
+// القالب: المكتوب في الأمر، أو في ملف المنتج، أو الثابت المحسوب من اسمه
+export const productThemeId = (product: Product, override?: ThemeId): ThemeId =>
+  override ?? product.theme ?? autoTheme(product.id);
+
+const resolveTheme = (product: Product, override?: ThemeId): Theme => {
+  const base = themes[productThemeId(product, override)];
+  return {
+    ...base,
+    ...product.colors,
+    fonts: { ...base.fonts, ...product.fonts },
+  };
+};
 
 export const findProduct = (productId: string): Product => {
   const product = products.find((p) => p.id === productId || p.code === productId);
@@ -8,7 +22,7 @@ export const findProduct = (productId: string): Product => {
 };
 
 // يجمع بيانات الإعلان: المنتج + الزاوية + الهوك
-export const resolveAd = ({ productId, angleId, hookId }: AdProps): AdContent => {
+export const resolveAd = ({ productId, angleId, hookId, themeId }: AdProps): AdContent => {
   const product = findProduct(productId);
   const angle = product.angles.find((a) => a.id === angleId);
   if (!angle) throw new Error(`الزاوية "${angleId}" مش موجودة في ${product.id}`);
@@ -29,7 +43,12 @@ export const resolveAd = ({ productId, angleId, hookId }: AdProps): AdContent =>
     offer: product.offer,
     cta: product.cta,
     images: product.images,
-    theme: product.theme,
+    reviews: product.reviews,
+    faq: product.faq,
+    limited: product.limited,
+    music: product.music,
+    sfx: product.sfx ?? true,
+    theme: resolveTheme(product, themeId),
     angle,
     clips: product.clips ?? [],
     hook,
@@ -43,14 +62,22 @@ export const resolveAd = ({ productId, angleId, hookId }: AdProps): AdContent =>
 // اسم الإعلان بنظام ثابت: P-منتج_A-زاوية_F-فورمات_H-هوك
 export const adName = (ad: AdProps) => {
   const product = findProduct(ad.productId);
-  return `P-${product.code}_A-${ad.angleId}_F-${ad.format}_H-${ad.hookId}`;
+  const name = `P-${product.code}_A-${ad.angleId}_F-${ad.format}_H-${ad.hookId}`;
+  // قالب متغيّر للتجربة بيتكتب في الآخر عشان الملف ميتكتبش فوق التاني
+  return ad.themeId ? `${name}_T-${ad.themeId}` : name;
 };
 
 export const parseAdName = (name: string): AdProps => {
-  const match = new RegExp(`^P-(.+)_A-(.+)_F-(${formats.join("|")})_H-(.+)$`).exec(
+  const match = new RegExp(`^P-(.+)_A-(.+)_F-(${formats.join("|")})_H-(.+?)(?:_T-(\\w+))?$`).exec(
     name.replace(/\.(mp4|png)$/, ""),
   );
   if (!match) throw new Error(`اسم الإعلان "${name}" مش بالشكل P-منتج_A-زاوية_F-فورمات_H-هوك`);
-  const [, code, angleId, format, hookId] = match;
-  return { productId: findProduct(code).id, angleId, format: format as AdProps["format"], hookId };
+  const [, code, angleId, format, hookId, themeId] = match;
+  return {
+    productId: findProduct(code).id,
+    angleId,
+    format: format as AdProps["format"],
+    hookId,
+    ...(themeId ? { themeId: themeId as ThemeId } : {}),
+  };
 };

@@ -1,6 +1,7 @@
 import React from "react";
 import { AbsoluteFill } from "remotion";
 import type { MediaRef } from "../lib/media";
+import { BlurredMedia } from "./BlurredMedia";
 import { Media } from "./Media";
 
 // لقطة ملء الشاشة. لو صورة: الصورة كاملة في النص وخلفيتها مموّهة، عشان صور المورد غالبًا مش 9:16
@@ -10,9 +11,7 @@ export const FullMedia: React.FC<{ media: MediaRef; dim?: number }> = ({ media, 
       <Media media={media} />
     ) : (
       <>
-        <AbsoluteFill style={{ filter: "blur(30px) brightness(0.7)", scale: "1.2" }}>
-          <Media media={media} zoom={[1, 1]} />
-        </AbsoluteFill>
+        <BlurredMedia media={media} brightness={0.7} />
         <AbsoluteFill style={{ top: 200, bottom: 200 }}>
           <Media media={media} zoom={[1, 1.08]} fit="contain" />
         </AbsoluteFill>

@@ -1,10 +1,13 @@
 import { loadFont } from "@remotion/fonts";
 import { staticFile } from "remotion";
+import { fontNames } from "./themes";
 
-export const FONT_FAMILY = "Cairo";
-
-loadFont({
-  family: FONT_FAMILY,
-  url: staticFile("fonts/Cairo.ttf"),
-  weight: "200 1000",
-});
+// كل الخطوط جوه public/fonts، فمش محتاجين إنترنت وقت الـ render
+// (الرخص في public/fonts/licenses)
+for (const family of fontNames) {
+  loadFont({
+    family,
+    url: staticFile(`fonts/${family}.ttf`),
+    weight: "100 1000",
+  });
+}

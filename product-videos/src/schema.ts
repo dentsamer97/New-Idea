@@ -1,17 +1,8 @@
 import { z } from "zod";
+import { fontNames, themeIds, type Theme } from "./themes";
 
-export const iconNames = [
-  "foot",
-  "drop",
-  "soap",
-  "car",
-  "sun",
-  "tent",
-  "family",
-  "farm",
-  "road",
-  "check",
-] as const;
+// الأيقونة: اسم أي أيقونة من مكتبة Lucide (lucide.dev/icons) زي truck أو gift
+const iconSchema = z.string();
 
 // أشكال الإعلان (Format) اللي المشروع بيطلّعها
 //  showcase: عرض المنتج كامل (~32 ث)       short:   نسخة مختصرة (~14 ث)
@@ -52,7 +43,7 @@ const clipSchema = z.object({
   audio: z.boolean().optional(),
 });
 
-const useSchema = z.object({ icon: z.enum(iconNames), label: z.string() });
+const useSchema = z.object({ icon: iconSchema, label: z.string() });
 
 export const productSchema = z.object({
   // معرّف المنتج بالإنجليزي (حروف صغيرة وشرطة)
@@ -71,7 +62,7 @@ export const productSchema = z.object({
     .array(
       z.object({
         id: z.string(),
-        icon: z.enum(iconNames),
+        icon: iconSchema,
         title: z.string(),
         text: z.string(),
         image: z.string(),
@@ -129,11 +120,24 @@ export const productSchema = z.object({
     // صورة المنتج وهو مستخدم (خلفية مشهد الاستخدامات)
     lifestyle: z.string(),
   }),
-  theme: z.object({
-    dark: z.string(),
-    primary: z.string(),
-    accent: z.string(),
-  }),
+  // القالب (اختياري): night، clean، bold، desert، neon، fresh، fun، luxury
+  // لو مش مكتوب، المنتج بياخد قالب ثابت محسوب من اسمه
+  theme: z.enum(themeIds).optional(),
+  // تغيير خطوط أو ألوان القالب للمنتج ده بس (اختياري)
+  fonts: z.object({ heading: z.enum(fontNames).optional(), body: z.enum(fontNames).optional() }).optional(),
+  colors: z
+    .object({ accent: z.string().optional(), onAccent: z.string().optional(), primary: z.string().optional() })
+    .optional(),
+  // تقييمات عملاء حقيقية بس (اختياري): بتظهر في مشهد «آراء العملاء»
+  reviews: z.array(z.object({ text: z.string(), name: z.string(), city: z.string().optional() })).optional(),
+  // أسئلة وأجوبة حقيقية (اختياري): بتظهر كرسايل واتساب
+  faq: z.array(z.object({ q: z.string(), a: z.string() })).optional(),
+  // جملة ندرة حقيقية بس (اختياري)، مثلاً "الكمية محدودة"
+  limited: z.string().optional(),
+  // موسيقى (اختياري): ملف جوه public، مثلاً music/calm.mp3
+  music: z.string().optional(),
+  // المؤثرات الصوتية (ووش، بوب...). الافتراضي شغالة
+  sfx: z.boolean().optional(),
 });
 
 // الإعلان = منتج × زاوية × هوك × فورمات
@@ -142,12 +146,13 @@ export const adSchema = z.object({
   angleId: z.string(),
   hookId: z.string(),
   format: z.enum(formats),
+  // تجربة قالب تاني من غير ما تغيّر ملف المنتج (اختياري)
+  themeId: z.enum(themeIds).optional(),
 });
 
 export type Product = z.infer<typeof productSchema>;
 export type AdProps = z.infer<typeof adSchema>;
 export type Format = (typeof formats)[number];
-export type IconName = (typeof iconNames)[number];
 export type Feature = Product["features"][number];
 export type Angle = Product["angles"][number];
 export type Hook = Product["hooks"][number];
@@ -157,8 +162,10 @@ export type ClipRole = (typeof clipRoles)[number];
 // المحتوى النهائي اللي المشاهد بتعرضه بعد اختيار الزاوية والهوك
 export type AdContent = Pick<
   Product,
-  "name" | "tagline" | "currency" | "price" | "oldPrice" | "offer" | "cta" | "images" | "theme"
+  "name" | "tagline" | "currency" | "price" | "oldPrice" | "offer" | "cta" | "images" | "reviews" | "faq" | "limited" | "music"
 > & {
+  theme: Theme;
+  sfx: boolean;
   angle: Angle;
   clips: Clip[];
   hook: Hook;

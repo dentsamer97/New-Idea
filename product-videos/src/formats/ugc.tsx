@@ -3,20 +3,22 @@ import type { AdContent } from "../schema";
 import { Cta } from "../scenes/Cta";
 import { Offer } from "../scenes/Offer";
 import { Shot } from "./Shot";
-import { END_FRAMES, type BuiltAd } from "./types";
+import { TIMING } from "../lib/timing";
+import type { BuiltAd } from "./types";
 
 // UGC: لقطات ملء الشاشة بقطع سريع، والكلام مكتوب عليها بستايل تيك توك
 export const buildUgc = (content: AdContent): BuiltAd => {
   const { theme, hook } = content;
   const problemMedia = mediaFor(content, { kind: "problem" }) ?? mediaFor(content, { kind: "lifestyle" })!;
-  const features = content.features.slice(0, 3);
+  const t = TIMING.ugc;
+  const features = content.features.slice(0, t.maxFeatures);
 
   return {
     cuts: true,
     scenes: [
       {
         name: "Hook",
-        frames: 75,
+        frames: t.hook,
         el: (
           <Shot
             media={mediaFor(content, { kind: "hook" })!}
@@ -24,17 +26,18 @@ export const buildUgc = (content: AdContent): BuiltAd => {
             label={hook.top}
             caption={hook.main}
             highlight={hook.highlight}
+            visibleAtStart
           />
         ),
       },
       {
         name: "Problem",
-        frames: 66,
+        frames: t.problem,
         el: <Shot media={problemMedia} theme={theme} caption={content.problems[0]} />,
       },
       ...features.map((feature, i) => ({
         name: feature.title,
-        frames: 63,
+        frames: t.feature,
         el: (
           <Shot
             media={mediaFor(content, { kind: "feature", featureId: feature.id, image: feature.image }, i)!}
@@ -46,7 +49,7 @@ export const buildUgc = (content: AdContent): BuiltAd => {
       })),
       {
         name: "Result",
-        frames: 60,
+        frames: t.result,
         el: (
           <Shot
             media={mediaFor(content, { kind: "result" })!}
@@ -56,8 +59,8 @@ export const buildUgc = (content: AdContent): BuiltAd => {
           />
         ),
       },
-      { name: "Offer", frames: END_FRAMES.offer, el: <Offer content={content} /> },
-      { name: "Cta", frames: END_FRAMES.cta, el: <Cta content={content} /> },
+      { name: "Offer", frames: TIMING.end.offer, el: <Offer content={content} /> },
+      { name: "Cta", frames: TIMING.end.cta, el: <Cta content={content} /> },
     ],
   };
 };

@@ -13,6 +13,7 @@
     "@remotion/fonts": "4.0.539",
     "@remotion/media": "4.0.539",
     "@remotion/transitions": "4.0.539",
+    "lucide-react": "^0.460.0",
     "react": "19.2.3",
     "react-dom": "19.2.3",
     "remotion": "4.0.539",
@@ -37,7 +38,9 @@
     "angles": "tsx scripts/angles.mts",
     "upgrade": "remotion upgrade",
     "lint": "eslint src && tsc",
-    "clips": "tsx scripts/clips.mts"
+    "clips": "tsx scripts/clips.mts",
+    "try": "tsx scripts/try.mts",
+    "setup:skills": "npx skills add remotion-dev/skills"
   },
   "allowScripts": {
     "esbuild": false

@@ -2,10 +2,12 @@
 //   npm run angles -- sink
 //   npm run angles -- sink --format static --pattern curiosity
 //   npm run angles -- sink --dry
+//   npm run angles -- sink --theme bold
 import { formats } from "../src/schema";
 import { anglesPlan, formatLabel } from "../src/lib/plan";
 import { adName, findProduct } from "../src/lib/resolve";
 import { parseArgs, str } from "./lib/args.mjs";
+import { themeArg } from "./lib/theme-arg.mjs";
 import { logAds } from "./lib/log.mjs";
 import { createRenderer } from "./lib/render.mjs";
 
@@ -17,7 +19,10 @@ if (!formats.includes(format)) {
   process.exit(1);
 }
 
-const { ads, missing } = anglesPlan(product.id, format, str(args.pattern));
+const themeId = themeArg(args);
+const plan = anglesPlan(product.id, format, str(args.pattern));
+const ads = plan.ads.map((ad) => (themeId ? { ...ad, themeId } : ad));
+const { missing } = plan;
 console.log(`\nاختبار الزوايا لـ ${product.name} (${formatLabel[format]}):`);
 for (const ad of ads) console.log(`  ${adName(ad)}  ← ${ad.change}`);
 if (missing.length) {

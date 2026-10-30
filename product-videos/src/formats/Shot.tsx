@@ -2,8 +2,7 @@ import React from "react";
 import { AbsoluteFill, useCurrentFrame, useVideoConfig } from "remotion";
 import { Caption } from "../components/Caption";
 import { FullMedia } from "../components/FullMedia";
-import { Pill } from "../components/Pill";
-import { FONT_FAMILY } from "../fonts";
+import { Label } from "../components/boxes";
 import { enter, pop } from "../lib/anim";
 import type { MediaRef } from "../lib/media";
 import type { AdContent } from "../schema";
@@ -20,13 +19,15 @@ export const Shot: React.FC<{
   // كلمة إنجليزي قبل الكلام (مثلاً POV:) بتتعرض في اتجاهها الصح
   prefix?: string;
   position?: "middle" | "top";
-}> = ({ media, theme, caption, highlight, label, sub, prefix, position = "middle" }) => {
+  // ظاهر من أول فريم (للهوك)
+  visibleAtStart?: boolean;
+}> = ({ media, theme, caption, highlight, label, sub, prefix, position = "middle", visibleAtStart = false }) => {
   const frame = useCurrentFrame();
   const { fps } = useVideoConfig();
   const boxed = position === "top";
 
   return (
-    <AbsoluteFill style={{ direction: "rtl", fontFamily: FONT_FAMILY, color: "white" }}>
+    <AbsoluteFill style={{ direction: "rtl", fontFamily: theme.fonts.heading, color: "white" }}>
       <FullMedia media={media} dim={boxed ? 0.1 : 0.3} />
       <AbsoluteFill
         style={{
@@ -40,9 +41,11 @@ export const Shot: React.FC<{
         }}
       >
         {label ? (
-          <Pill background={theme.accent} color={theme.dark} fontSize={54} style={{ scale: String(pop(frame, fps, 0)) }}>
-            {label}
-          </Pill>
+          <div style={{ scale: visibleAtStart ? "1" : String(pop(frame, fps, 0)) }}>
+            <Label theme={theme} size={54}>
+              {label}
+            </Label>
+          </div>
         ) : null}
         {boxed ? (
           <div
@@ -63,7 +66,7 @@ export const Shot: React.FC<{
             {caption}
           </div>
         ) : (
-          <Caption text={caption} highlight={highlight} accent={theme.accent} delay={label ? 4 : 0} />
+          <Caption text={caption} highlight={highlight} accent={theme.accent} delay={label ? 4 : 0} visibleAtStart={visibleAtStart} />
         )}
         {sub ? (
           <div

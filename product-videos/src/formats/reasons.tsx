@@ -2,15 +2,16 @@ import React from "react";
 import { interpolate, useCurrentFrame, useVideoConfig } from "remotion";
 import { PhotoCard } from "../components/PhotoCard";
 import { Scene } from "../components/Scene";
-import { enter, pop } from "../lib/anim";
+import { enter, entrance, pop } from "../lib/anim";
 import { mediaFor, type MediaRef } from "../lib/media";
 import type { AdContent, Feature } from "../schema";
 import { Cta } from "../scenes/Cta";
 import { Hook } from "../scenes/Hook";
 import { Offer } from "../scenes/Offer";
-import { END_FRAMES, type BuiltAd } from "./types";
+import { TIMING } from "../lib/timing";
+import type { BuiltAd } from "./types";
 
-const REASONS = 3;
+const REASONS = TIMING.reasons.count;
 
 const ReasonsTitle: React.FC<{ content: AdContent }> = ({ content }) => {
   const frame = useCurrentFrame();
@@ -18,10 +19,10 @@ const ReasonsTitle: React.FC<{ content: AdContent }> = ({ content }) => {
   return (
     <Scene theme={content.theme}>
       <div style={{ height: "100%", display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "center" }}>
-        <div style={{ fontSize: 300, fontWeight: 900, lineHeight: 1, color: content.theme.accent, scale: String(pop(frame, fps, 0)) }}>
+        <div style={{ fontSize: 300, fontWeight: 900, lineHeight: 1, color: content.theme.accent, fontFamily: content.theme.fonts.heading, scale: String(pop(frame, fps, 0)) }}>
           {REASONS}
         </div>
-        <div style={{ fontSize: 110, fontWeight: 900, lineHeight: 1.2, opacity: enter(frame, 6, 10) }}>أسباب</div>
+        <div style={{ fontSize: 110, fontWeight: 900, lineHeight: 1.2, fontFamily: content.theme.fonts.heading, ...entrance(content.theme, frame, fps, 6) }}>أسباب</div>
         <div
           style={{
             marginTop: 20,
@@ -57,7 +58,8 @@ const Reason: React.FC<{ content: AdContent; feature: Feature; media: MediaRef; 
             height: 170,
             borderRadius: "50%",
             background: theme.accent,
-            color: theme.dark,
+            color: theme.onAccent,
+            fontFamily: theme.fonts.heading,
             fontSize: 120,
             fontWeight: 900,
             display: "flex",
@@ -75,9 +77,9 @@ const Reason: React.FC<{ content: AdContent; feature: Feature; media: MediaRef; 
             translate: `0px ${interpolate(enter(frame, 4, 16), [0, 1], [120, 0])}px`,
           }}
         >
-          <PhotoCard media={media} width={760} height={680} />
+          <PhotoCard media={media} theme={theme} width={760} height={680} />
         </div>
-        <div style={{ marginTop: 40, fontSize: 96, fontWeight: 900, textAlign: "center", opacity: enter(frame, 10, 10) }}>
+        <div style={{ marginTop: 40, fontSize: 96, fontWeight: 900, textAlign: "center", fontFamily: theme.fonts.heading, ...entrance(theme, frame, fps, 10) }}>
           {feature.title}
         </div>
         <div
@@ -87,7 +89,7 @@ const Reason: React.FC<{ content: AdContent; feature: Feature; media: MediaRef; 
             fontWeight: 600,
             textAlign: "center",
             textWrap: "balance",
-            color: "rgba(255,255,255,0.88)",
+            color: theme.muted,
             opacity: enter(frame, 16, 10),
           }}
         >
@@ -102,11 +104,11 @@ const Reason: React.FC<{ content: AdContent; feature: Feature; media: MediaRef; 
 export const buildReasons = (content: AdContent): BuiltAd => ({
   cuts: false,
   scenes: [
-    { name: "Hook", frames: 75, el: <Hook content={content} /> },
-    { name: "Title", frames: 54, el: <ReasonsTitle content={content} /> },
+    { name: "Hook", frames: TIMING.reasons.hook, el: <Hook content={content} /> },
+    { name: "Title", frames: TIMING.reasons.title, el: <ReasonsTitle content={content} /> },
     ...content.features.slice(0, REASONS).map((feature, i) => ({
       name: `Reason ${i + 1}`,
-      frames: 75,
+      frames: TIMING.reasons.reason,
       el: (
         <Reason
           content={content}
@@ -116,7 +118,7 @@ export const buildReasons = (content: AdContent): BuiltAd => ({
         />
       ),
     })),
-    { name: "Offer", frames: END_FRAMES.offer, el: <Offer content={content} /> },
-    { name: "Cta", frames: END_FRAMES.cta, el: <Cta content={content} /> },
+    { name: "Offer", frames: TIMING.end.offer, el: <Offer content={content} /> },
+    { name: "Cta", frames: TIMING.end.cta, el: <Cta content={content} /> },
   ],
 });

@@ -11,14 +11,14 @@ export const portableSink: Product = {
   features: [
     {
       id: "foot",
-      icon: "foot",
+      icon: "footprints",
       title: "تشتغل برجلك",
       text: "مضخة قدم بدون كهرباء وبدون ما تلمس شي",
       image: "products/portable-sink/foot.jpg",
     },
     {
       id: "tank",
-      icon: "drop",
+      icon: "droplet",
       title: "خزان 19 لتر",
       text: "يكفي أكثر من 100 غسلة للعائلة كلها",
       image: "products/portable-sink/sink.jpg",
@@ -58,9 +58,9 @@ export const portableSink: Product = {
       usesTitle: "رفيقك الأول في",
       uses: [
         { icon: "tent", label: "الكشتات والتخييم" },
-        { icon: "road", label: "السفر" },
-        { icon: "family", label: "السفرات العائلية" },
-        { icon: "farm", label: "المزارع" },
+        { icon: "route", label: "السفر" },
+        { icon: "users", label: "السفرات العائلية" },
+        { icon: "tractor", label: "المزارع" },
       ],
     },
     {
@@ -75,9 +75,9 @@ export const portableSink: Product = {
       usesTitle: "تتوضأ براحتك في",
       uses: [
         { icon: "tent", label: "الكشتات" },
-        { icon: "road", label: "السفر" },
-        { icon: "farm", label: "المزارع" },
-        { icon: "family", label: "التجمعات العائلية" },
+        { icon: "route", label: "السفر" },
+        { icon: "tractor", label: "المزارع" },
+        { icon: "users", label: "التجمعات العائلية" },
       ],
     },
     {
@@ -91,10 +91,10 @@ export const portableSink: Product = {
       featureOrder: ["foot", "soap", "tank", "fold", "hdpe"],
       usesTitle: "نظافة العائلة في",
       uses: [
-        { icon: "family", label: "السفرات العائلية" },
+        { icon: "users", label: "السفرات العائلية" },
         { icon: "tent", label: "الكشتات" },
-        { icon: "road", label: "الحدائق والمتنزهات" },
-        { icon: "farm", label: "المزارع" },
+        { icon: "route", label: "الحدائق والمتنزهات" },
+        { icon: "tractor", label: "المزارع" },
       ],
     },
     {
@@ -108,9 +108,9 @@ export const portableSink: Product = {
       featureOrder: ["fold", "tank", "hdpe", "foot", "soap"],
       usesTitle: "تفيدك في",
       uses: [
-        { icon: "farm", label: "المزرعة" },
+        { icon: "tractor", label: "المزرعة" },
         { icon: "car", label: "الورشة" },
-        { icon: "road", label: "مواقع الشغل" },
+        { icon: "route", label: "مواقع الشغل" },
         { icon: "tent", label: "البر والتخييم" },
       ],
     },
@@ -139,9 +139,5 @@ export const portableSink: Product = {
     product: "products/portable-sink/sink.jpg",
     lifestyle: "products/portable-sink/camping.jpg",
   },
-  theme: {
-    dark: "#0A1F3C",
-    primary: "#1E6FD9",
-    accent: "#FFC233",
-  },
+  theme: "night",
 };

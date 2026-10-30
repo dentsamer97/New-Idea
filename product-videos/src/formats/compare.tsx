@@ -7,13 +7,14 @@ import { Scene } from "../components/Scene";
 import { enter, pop } from "../lib/anim";
 import { mediaFor, productImage, type MediaRef } from "../lib/media";
 import type { AdContent } from "../schema";
+import { DANGER, SUCCESS, type Theme } from "../themes";
 import { Cta } from "../scenes/Cta";
 import { Hook } from "../scenes/Hook";
 import { Offer } from "../scenes/Offer";
-import { END_FRAMES, type BuiltAd } from "./types";
+import { TIMING } from "../lib/timing";
+import type { BuiltAd } from "./types";
 
-const ROW_START = 24;
-const ROW_GAP = 30;
+const { rowStart: ROW_START, rowGap: ROW_GAP } = TIMING.compare;
 
 type Row = { before: string; after: string };
 
@@ -29,11 +30,11 @@ const Panel: React.FC<{
   title: string;
   media: MediaRef | null;
   items: string[];
-  accent: string;
-}> = ({ good, title, media, items, accent }) => {
+  theme: Theme;
+}> = ({ good, title, media, items, theme }) => {
   const frame = useCurrentFrame();
   const { fps } = useVideoConfig();
-  const color = good ? "#22C55E" : "#E5484D";
+  const color = good ? SUCCESS : DANGER;
 
   return (
     <div
@@ -49,7 +50,7 @@ const Panel: React.FC<{
         opacity: enter(frame, good ? 8 : 0, 10),
       }}
     >
-      <Pill background={color} color="white" fontSize={52} style={{ alignSelf: "flex-start" }}>
+      <Pill background={color} color="white" fontSize={52} style={{ alignSelf: "flex-start", fontFamily: theme.fonts.heading }}>
         {title}
       </Pill>
       <div style={{ display: "flex", gap: 28, alignItems: "center", flex: 1 }}>
@@ -60,7 +61,7 @@ const Panel: React.FC<{
             height: 320,
             borderRadius: 32,
             overflow: "hidden",
-            background: "rgba(0,0,0,0.3)",
+            background: theme.surface,
             display: "flex",
             alignItems: "center",
             justifyContent: "center",
@@ -84,7 +85,7 @@ const Panel: React.FC<{
                 }}
               >
                 <div style={{ flexShrink: 0, scale: String(pop(frame, fps, start)) }}>
-                  <Icon name={good ? "check" : "x"} size={52} color={good ? accent : "#FF8A8E"} strokeWidth={3.2} />
+                  <Icon name={good ? "check" : "x"} size={52} color={good ? SUCCESS : DANGER} strokeWidth={3.2} />
                 </div>
                 <div style={{ fontSize: 48, fontWeight: 800, lineHeight: 1.3 }}>{item}</div>
               </div>
@@ -108,14 +109,14 @@ export const Compare: React.FC<{ content: AdContent }> = ({ content }) => {
           title={`قبل: ${beforeLabel}`}
           media={mediaFor(content, { kind: "before" })}
           items={rows.map((r) => r.before)}
-          accent={content.theme.accent}
+          theme={content.theme}
         />
         <Panel
           good
           title={`بعد: ${content.name}`}
           media={mediaFor(content, { kind: "result" }) ?? productImage(content)}
           items={rows.map((r) => r.after)}
-          accent={content.theme.accent}
+          theme={content.theme}
         />
       </div>
     </Scene>
@@ -128,10 +129,10 @@ export const buildCompare = (content: AdContent): BuiltAd => {
   return {
     cuts: false,
     scenes: [
-      { name: "Hook", frames: 75, el: <Hook content={content} /> },
-      { name: "Compare", frames: ROW_START + rows.length * ROW_GAP + 70, el: <Compare content={content} /> },
-      { name: "Offer", frames: END_FRAMES.offer, el: <Offer content={content} /> },
-      { name: "Cta", frames: END_FRAMES.cta, el: <Cta content={content} /> },
+      { name: "Hook", frames: TIMING.compare.hook, el: <Hook content={content} /> },
+      { name: "Compare", frames: ROW_START + rows.length * ROW_GAP + TIMING.compare.hold, el: <Compare content={content} /> },
+      { name: "Offer", frames: TIMING.end.offer, el: <Offer content={content} /> },
+      { name: "Cta", frames: TIMING.end.cta, el: <Cta content={content} /> },
     ],
   };
 };

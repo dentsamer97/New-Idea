@@ -1,4 +1,4 @@
-import { TRANSITION_FRAMES } from "../lib/timing";
+import { TIMING } from "../lib/timing";
 import type { AdContent, Format } from "../schema";
 import { buildCompare } from "./compare";
 import { buildPov } from "./pov";
@@ -26,4 +26,4 @@ export const buildAd = (content: AdContent, format: VideoFormat): BuiltAd => {
 };
 
 export const builtDuration = ({ scenes, cuts }: BuiltAd) =>
-  scenes.reduce((sum, s) => sum + s.frames, 0) - (cuts ? 0 : TRANSITION_FRAMES * (scenes.length - 1));
+  scenes.reduce((sum, s) => sum + s.frames, 0) - (cuts ? 0 : TIMING.transitionFrames * (scenes.length - 1));

@@ -70,7 +70,8 @@ export const winnerPlan = (
   const winnerHook = product.hooks.find((h) => h.id === winner.hookId);
   if (!winnerHook) throw new Error(`الهوك "${winner.hookId}" مش موجود في ${product.id}`);
   const missing: string[] = [];
-  const base = { productId: product.id };
+  // القالب بيفضل زي ما هو في كل النسخ (تغييره = تغيير عنصر رابع)
+  const base = { productId: product.id, ...(winner.themeId ? { themeId: winner.themeId } : {}) };
 
   // نفس الزاوية والفورمات، هوك تاني (بيختبر الهوك)
   const newHooks: PlannedAd[] = product.hooks

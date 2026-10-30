@@ -1,11 +1,12 @@
 import React from "react";
-import { interpolate, useCurrentFrame, useVideoConfig } from "remotion";
+import { useCurrentFrame, useVideoConfig } from "remotion";
 import { PhotoCard } from "../components/PhotoCard";
 import { Pill } from "../components/Pill";
 import { Scene } from "../components/Scene";
-import { enter, pop } from "../lib/anim";
+import { enter, entrance, pop } from "../lib/anim";
 import { mediaFor } from "../lib/media";
 import type { AdContent } from "../schema";
+import { SUCCESS } from "../themes";
 
 export const Reveal: React.FC<{ content: AdContent }> = ({ content }) => {
   const frame = useCurrentFrame();
@@ -14,31 +15,14 @@ export const Reveal: React.FC<{ content: AdContent }> = ({ content }) => {
 
   return (
     <Scene theme={theme}>
-      <div style={{ display: "flex", flexDirection: "column", alignItems: "center" }}>
-        <Pill background="#22C55E" color="white" fontSize={60} style={{ scale: String(pop(frame, fps, 0)) }}>
+      <div style={{ display: "flex", flexDirection: "column", alignItems: "center", fontFamily: theme.fonts.heading }}>
+        <Pill background={SUCCESS} color="white" fontSize={60} style={{ scale: String(pop(frame, fps, 0)) }}>
           الحل
         </Pill>
-        <div
-          style={{
-            marginTop: 30,
-            fontSize: 124,
-            fontWeight: 900,
-            lineHeight: 1.2,
-            opacity: enter(frame, 6, 10),
-            translate: `0px ${interpolate(enter(frame, 6, 14), [0, 1], [50, 0])}px`,
-          }}
-        >
+        <div style={{ marginTop: 30, fontSize: 124, fontWeight: 900, lineHeight: 1.2, ...entrance(theme, frame, fps, 6) }}>
           {content.name}
         </div>
-        <div
-          style={{
-            fontSize: 96,
-            fontWeight: 800,
-            color: theme.accent,
-            lineHeight: 1.2,
-            opacity: enter(frame, 12, 10),
-          }}
-        >
+        <div style={{ fontSize: 96, fontWeight: 800, color: theme.accent, lineHeight: 1.2, ...entrance(theme, frame, fps, 12) }}>
           {content.tagline}
         </div>
       </div>
@@ -67,7 +51,7 @@ export const Reveal: React.FC<{ content: AdContent }> = ({ content }) => {
           }}
         />
         <div style={{ scale: String(pop(frame, fps, 10)) }}>
-          <PhotoCard media={mediaFor(content, { kind: "reveal" })!} width={600} height={880} />
+          <PhotoCard media={mediaFor(content, { kind: "reveal" })!} theme={theme} width={600} height={880} />
         </div>
       </div>
     </Scene>

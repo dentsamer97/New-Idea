@@ -1,6 +1,6 @@
 import React from "react";
-import { useCurrentFrame, useVideoConfig } from "remotion";
-import { pop } from "../lib/anim";
+import { interpolate, useCurrentFrame, useVideoConfig } from "remotion";
+import { enter, pop } from "../lib/anim";
 import { isHighlighted } from "../lib/highlight";
 
 // كلام بستايل تيك توك: أبيض بحدود سودا، والكلمات بتظهر ورا بعض
@@ -10,8 +10,10 @@ export const Caption: React.FC<{
   accent: string;
   fontSize?: number;
   delay?: number;
+  // ظاهر من أول فريم من غير ما الكلمات تستنى بعض
+  visibleAtStart?: boolean;
   style?: React.CSSProperties;
-}> = ({ text, highlight = "", accent, fontSize = 88, delay = 0, style }) => {
+}> = ({ text, highlight = "", accent, fontSize = 88, delay = 0, visibleAtStart = false, style }) => {
   const frame = useCurrentFrame();
   const { fps } = useVideoConfig();
   const outline = Array.from({ length: 16 }, (_, i) => {
@@ -38,7 +40,9 @@ export const Caption: React.FC<{
             display: "inline-block",
             marginInline: fontSize * 0.14,
             color: highlight && isHighlighted(word, highlight) ? accent : "white",
-            scale: String(pop(frame, fps, delay + i * 3)),
+            scale: visibleAtStart
+              ? String(interpolate(enter(frame, 0, 10), [0, 1], [1.08, 1]))
+              : String(pop(frame, fps, delay + i * 3)),
           }}
         >
           {word}

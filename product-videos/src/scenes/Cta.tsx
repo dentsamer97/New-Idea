@@ -3,11 +3,12 @@ import { interpolate, useCurrentFrame, useVideoConfig } from "remotion";
 import { Icon } from "../components/Icon";
 import { Scene } from "../components/Scene";
 import { enter, pop } from "../lib/anim";
+import { TIMING } from "../lib/timing";
 import type { AdContent } from "../schema";
+import { SUCCESS, SUCCESS_LIGHT } from "../themes";
 
-// لحظات ضغط الإيد على الزرار
-const TAPS = [42, 96];
-const TAP_LENGTH = 16;
+const TAPS = TIMING.ctaTaps;
+const TAP_LENGTH = TIMING.ctaTapLength;
 
 export const Cta: React.FC<{ content: AdContent }> = ({ content }) => {
   const frame = useCurrentFrame();
@@ -20,12 +21,14 @@ export const Cta: React.FC<{ content: AdContent }> = ({ content }) => {
     extrapolateRight: "clamp",
   });
   const ripple = tap === undefined ? 0 : enter(frame, tap, TAP_LENGTH + 6);
+  const green = theme.isDark ? SUCCESS_LIGHT : SUCCESS;
 
   return (
     <Scene theme={theme}>
       <div style={{ display: "flex", flexDirection: "column", alignItems: "center" }}>
         <div
           style={{
+            fontFamily: theme.fonts.heading,
             marginTop: 120,
             fontSize: 140,
             fontWeight: 900,
@@ -43,11 +46,11 @@ export const Cta: React.FC<{ content: AdContent }> = ({ content }) => {
             gap: 20,
             fontSize: 64,
             fontWeight: 800,
-            color: "#4ADE80",
+            color: green,
             opacity: enter(frame, 8, 10),
           }}
         >
-          <Icon name="cash" size={72} color="#4ADE80" />
+          <Icon name="hand-coins" size={72} color={green} />
           والدفع عند الاستلام
         </div>
 
@@ -57,7 +60,7 @@ export const Cta: React.FC<{ content: AdContent }> = ({ content }) => {
               position: "absolute",
               inset: 0,
               borderRadius: 999,
-              border: "6px solid #4ADE80",
+              border: `6px solid ${green}`,
               opacity: interpolate(ripple, [0, 1], [ripple > 0 ? 0.9 : 0, 0]),
               scale: String(interpolate(ripple, [0, 1], [1, 1.35])),
             }}
@@ -71,7 +74,9 @@ export const Cta: React.FC<{ content: AdContent }> = ({ content }) => {
               width: 800,
               height: 190,
               borderRadius: 999,
-              background: "#22C55E",
+              background: SUCCESS,
+              color: "white",
+              fontFamily: theme.fonts.heading,
               boxShadow: "0 30px 70px rgba(34,197,94,0.5)",
               fontSize: 88,
               fontWeight: 900,
@@ -80,7 +85,7 @@ export const Cta: React.FC<{ content: AdContent }> = ({ content }) => {
               ),
             }}
           >
-            <Icon name="cart" size={92} color="white" strokeWidth={2.2} />
+            <Icon name="shopping-cart" size={92} color="white" strokeWidth={2.2} />
             {cta.button}
           </div>
           <div
@@ -93,7 +98,7 @@ export const Cta: React.FC<{ content: AdContent }> = ({ content }) => {
               scale: String(1 - press * 0.1),
             }}
           >
-            <Icon name="hand" size={190} color={theme.dark} fill="white" strokeWidth={1.2} />
+            <Icon name="pointer" size={190} color="#111" fill="white" strokeWidth={1.2} />
           </div>
         </div>
 
@@ -114,7 +119,7 @@ export const Cta: React.FC<{ content: AdContent }> = ({ content }) => {
             translate: `0px ${Math.abs(Math.sin(frame / 7)) * 30}px`,
           }}
         >
-          <Icon name="arrowDown" size={110} color={theme.accent} strokeWidth={2.6} />
+          <Icon name="arrow-down" size={110} color={theme.accent} strokeWidth={2.6} />
         </div>
         {cta.whatsapp ? (
           <div style={{ marginTop: 20, fontSize: 56, fontWeight: 800, direction: "ltr" }}>
