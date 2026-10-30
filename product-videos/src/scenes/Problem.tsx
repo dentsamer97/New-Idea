@@ -4,14 +4,14 @@ import { Icon } from "../components/Icon";
 import { Pill } from "../components/Pill";
 import { Scene } from "../components/Scene";
 import { enter, pop } from "../lib/anim";
-import type { Product } from "../schema";
+import type { AdContent } from "../schema";
 
-export const Problem: React.FC<{ product: Product }> = ({ product }) => {
+export const Problem: React.FC<{ content: AdContent }> = ({ content }) => {
   const frame = useCurrentFrame();
   const { fps } = useVideoConfig();
 
   return (
-    <Scene theme={product.theme}>
+    <Scene theme={content.theme}>
       <div
         style={{
           height: "100%",
@@ -26,7 +26,7 @@ export const Problem: React.FC<{ product: Product }> = ({ product }) => {
           المشكلة
         </Pill>
         <div style={{ display: "flex", flexDirection: "column", gap: 44, width: "100%" }}>
-          {product.problems.map((problem, i) => {
+          {content.problems.map((problem, i) => {
             const start = 12 + i * 22;
             return (
               <div

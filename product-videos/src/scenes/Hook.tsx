@@ -4,15 +4,13 @@ import { PhotoCard } from "../components/PhotoCard";
 import { Pill } from "../components/Pill";
 import { Scene } from "../components/Scene";
 import { enter, pop } from "../lib/anim";
-import type { AdProps } from "../schema";
+import { isHighlighted } from "../lib/highlight";
+import type { AdContent } from "../schema";
 
-export const Hook: React.FC<AdProps> = ({ product, hookIndex }) => {
+export const Hook: React.FC<{ content: AdContent }> = ({ content }) => {
   const frame = useCurrentFrame();
   const { fps } = useVideoConfig();
-  const { theme } = product;
-  const hook = product.hooks[hookIndex % product.hooks.length];
-  const clean = (w: string) => w.replace(/[؟?!.,،]/g, "");
-  const highlighted = hook.highlight.split(" ").map(clean);
+  const { theme, hook } = content;
   const words = hook.main.split(" ");
 
   return (
@@ -37,7 +35,7 @@ export const Hook: React.FC<AdProps> = ({ product, hookIndex }) => {
         >
           {words.map((word, i) => {
             const start = 8 + i * 4;
-            const isHot = highlighted.includes(clean(word));
+            const isHot = isHighlighted(word, hook.highlight);
             return (
               <span
                 key={i}
@@ -67,7 +65,7 @@ export const Hook: React.FC<AdProps> = ({ product, hookIndex }) => {
           translate: `0px ${interpolate(enter(frame, 18, 20), [0, 1], [300, 0])}px`,
         }}
       >
-        <PhotoCard src={product.images.product} width={600} height={880} />
+        <PhotoCard src={content.images.product} width={600} height={880} />
       </div>
     </Scene>
   );

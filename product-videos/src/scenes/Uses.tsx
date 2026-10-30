@@ -3,17 +3,17 @@ import { AbsoluteFill, Img, interpolate, staticFile, useCurrentFrame, useVideoCo
 import { Icon } from "../components/Icon";
 import { Scene } from "../components/Scene";
 import { enter, pop } from "../lib/anim";
-import type { Product } from "../schema";
+import type { AdContent } from "../schema";
 
-export const Uses: React.FC<{ product: Product }> = ({ product }) => {
+export const Uses: React.FC<{ content: AdContent }> = ({ content }) => {
   const frame = useCurrentFrame();
   const { fps, durationInFrames } = useVideoConfig();
-  const { theme } = product;
+  const { theme } = content;
 
   const background = (
     <AbsoluteFill style={{ backgroundColor: theme.dark }}>
       <Img
-        src={staticFile(product.images.lifestyle)}
+        src={staticFile(content.images.lifestyle)}
         style={{
           width: "100%",
           height: "100%",
@@ -39,7 +39,7 @@ export const Uses: React.FC<{ product: Product }> = ({ product }) => {
           translate: `0px ${interpolate(enter(frame, 0, 14), [0, 1], [40, 0])}px`,
         }}
       >
-        {product.usesTitle}
+        {content.usesTitle}
       </div>
       <div
         style={{
@@ -49,7 +49,7 @@ export const Uses: React.FC<{ product: Product }> = ({ product }) => {
           gap: 36,
         }}
       >
-        {product.uses.map((use, i) => (
+        {content.uses.map((use, i) => (
           <div
             key={i}
             style={{

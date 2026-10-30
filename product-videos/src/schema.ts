@@ -13,9 +13,19 @@ export const iconNames = [
   "check",
 ] as const;
 
+// أشكال الإعلان اللي المشروع بيطلّعها
+//  showcase: فيديو عرض المنتج كامل (~32 ثانية)
+//  short:    نسخة مختصرة (~14 ثانية)
+//  static:   صورة ثابتة
+export const formats = ["showcase", "short", "static"] as const;
+
+const useSchema = z.object({ icon: z.enum(iconNames), label: z.string() });
+
 export const productSchema = z.object({
-  // معرّف المنتج بالإنجليزي (حروف صغيرة وشرطة): بيتكتب في اسم الفيديو
+  // معرّف المنتج بالإنجليزي (حروف صغيرة وشرطة)
   id: z.string(),
+  // اسم قصير بيتكتب في اسم الإعلان: P-<code>
+  code: z.string(),
   name: z.string(),
   tagline: z.string(),
   currency: z.enum(["IQD", "SAR"]),
@@ -24,21 +34,10 @@ export const productSchema = z.object({
   oldPrice: z.number().optional(),
   // عرض إضافي (اختياري) مثل: "قطعتين بـ 170,000"
   offer: z.string().optional(),
-  // كل Hook بيطلع فيديو مستقل عشان تجربهم في الإعلانات
-  hooks: z
-    .array(
-      z.object({
-        top: z.string(),
-        main: z.string(),
-        // كلمة من جملة main تتلوّن
-        highlight: z.string(),
-      }),
-    )
-    .min(1),
-  problems: z.array(z.string()).min(1),
   features: z
     .array(
       z.object({
+        id: z.string(),
         icon: z.enum(iconNames),
         title: z.string(),
         text: z.string(),
@@ -46,8 +45,34 @@ export const productSchema = z.object({
       }),
     )
     .min(1),
-  usesTitle: z.string(),
-  uses: z.array(z.object({ icon: z.enum(iconNames), label: z.string() })),
+  // الزاوية (Angle): العميل هيشتري ليه. كل زاوية ليها مشاكلها وترتيب مميزاتها
+  angles: z
+    .array(
+      z.object({
+        id: z.string(),
+        label: z.string(),
+        problems: z.array(z.string()).min(1),
+        // ترتيب المميزات بالـ id (الأهم الأول)
+        featureOrder: z.array(z.string()),
+        usesTitle: z.string(),
+        uses: z.array(useSchema),
+      }),
+    )
+    .min(1),
+  // الهوك: أول 3 ثواني. كل هوك تابع لزاوية وليه باترن (فضول، سؤال، رقم...)
+  hooks: z
+    .array(
+      z.object({
+        id: z.string(),
+        angle: z.string(),
+        pattern: z.string(),
+        top: z.string(),
+        main: z.string(),
+        // كلمة أو أكتر من جملة main تتلوّن
+        highlight: z.string(),
+      }),
+    )
+    .min(1),
   cta: z.object({
     headline: z.string(),
     button: z.string(),
@@ -67,11 +92,30 @@ export const productSchema = z.object({
   }),
 });
 
+// الإعلان = منتج × زاوية × هوك × فورمات
 export const adSchema = z.object({
-  product: productSchema,
-  hookIndex: z.number().int().min(0),
+  productId: z.string(),
+  angleId: z.string(),
+  hookId: z.string(),
+  format: z.enum(formats),
 });
 
 export type Product = z.infer<typeof productSchema>;
 export type AdProps = z.infer<typeof adSchema>;
+export type Format = (typeof formats)[number];
 export type IconName = (typeof iconNames)[number];
+export type Feature = Product["features"][number];
+export type Angle = Product["angles"][number];
+export type Hook = Product["hooks"][number];
+
+// المحتوى النهائي اللي المشاهد بتعرضه بعد اختيار الزاوية والهوك
+export type AdContent = Pick<
+  Product,
+  "name" | "tagline" | "currency" | "price" | "oldPrice" | "offer" | "cta" | "images" | "theme"
+> & {
+  hook: Hook;
+  problems: string[];
+  features: Feature[];
+  usesTitle: string;
+  uses: Angle["uses"];
+};

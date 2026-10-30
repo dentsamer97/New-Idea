@@ -4,16 +4,13 @@ import { Icon } from "../components/Icon";
 import { PhotoCard } from "../components/PhotoCard";
 import { Scene } from "../components/Scene";
 import { enter, pop } from "../lib/anim";
-import { DURATIONS } from "../lib/timing";
-import type { Product } from "../schema";
-
-type Feature = Product["features"][number];
+import type { AdContent, Feature } from "../schema";
 
 const FeatureCard: React.FC<{
   feature: Feature;
   index: number;
   count: number;
-  theme: Product["theme"];
+  theme: AdContent["theme"];
 }> = ({ feature, index, count, theme }) => {
   const frame = useCurrentFrame();
   const { fps } = useVideoConfig();
@@ -90,15 +87,18 @@ const FeatureCard: React.FC<{
   );
 };
 
-export const Features: React.FC<{ product: Product }> = ({ product }) => (
+export const Features: React.FC<{ content: AdContent; featureFrames: number }> = ({
+  content,
+  featureFrames,
+}) => (
   <Series>
-    {product.features.map((feature, i) => (
-      <Series.Sequence key={i} name={feature.title} durationInFrames={DURATIONS.feature}>
+    {content.features.map((feature, i) => (
+      <Series.Sequence key={i} name={feature.title} durationInFrames={featureFrames}>
         <FeatureCard
           feature={feature}
           index={i}
-          count={product.features.length}
-          theme={product.theme}
+          count={content.features.length}
+          theme={content.theme}
         />
       </Series.Sequence>
     ))}

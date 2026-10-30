@@ -4,12 +4,12 @@ import { PhotoCard } from "../components/PhotoCard";
 import { Pill } from "../components/Pill";
 import { Scene } from "../components/Scene";
 import { enter, pop } from "../lib/anim";
-import type { Product } from "../schema";
+import type { AdContent } from "../schema";
 
-export const Reveal: React.FC<{ product: Product }> = ({ product }) => {
+export const Reveal: React.FC<{ content: AdContent }> = ({ content }) => {
   const frame = useCurrentFrame();
   const { fps } = useVideoConfig();
-  const { theme } = product;
+  const { theme } = content;
 
   return (
     <Scene theme={theme}>
@@ -27,7 +27,7 @@ export const Reveal: React.FC<{ product: Product }> = ({ product }) => {
             translate: `0px ${interpolate(enter(frame, 6, 14), [0, 1], [50, 0])}px`,
           }}
         >
-          {product.name}
+          {content.name}
         </div>
         <div
           style={{
@@ -38,7 +38,7 @@ export const Reveal: React.FC<{ product: Product }> = ({ product }) => {
             opacity: enter(frame, 12, 10),
           }}
         >
-          {product.tagline}
+          {content.tagline}
         </div>
       </div>
       <div
@@ -66,7 +66,7 @@ export const Reveal: React.FC<{ product: Product }> = ({ product }) => {
           }}
         />
         <div style={{ scale: String(pop(frame, fps, 10)) }}>
-          <PhotoCard src={product.images.product} width={600} height={880} />
+          <PhotoCard src={content.images.product} width={600} height={880} />
         </div>
       </div>
     </Scene>

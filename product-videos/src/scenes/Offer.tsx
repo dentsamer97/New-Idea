@@ -6,17 +6,17 @@ import { Pill } from "../components/Pill";
 import { Scene } from "../components/Scene";
 import { enter, pop } from "../lib/anim";
 import { formatNumber, getCurrencyLabel } from "../lib/format";
-import type { Product } from "../schema";
+import type { AdContent } from "../schema";
 
-export const Offer: React.FC<{ product: Product }> = ({ product }) => {
+export const Offer: React.FC<{ content: AdContent }> = ({ content }) => {
   const frame = useCurrentFrame();
   const { fps } = useVideoConfig();
-  const { theme } = product;
+  const { theme } = content;
 
   // السعر بيعد من تحت لفوق
   const counted =
     Math.round(
-      interpolate(frame, [8, 34], [product.price * 0.4, product.price], {
+      interpolate(frame, [8, 34], [content.price * 0.4, content.price], {
         extrapolateLeft: "clamp",
         extrapolateRight: "clamp",
         easing: Easing.out(Easing.cubic),
@@ -27,10 +27,10 @@ export const Offer: React.FC<{ product: Product }> = ({ product }) => {
     <Scene theme={theme}>
       <div style={{ display: "flex", flexDirection: "column", alignItems: "center" }}>
         <div style={{ scale: String(pop(frame, fps, 0)) }}>
-          <PhotoCard src={product.images.product} width={420} height={600} />
+          <PhotoCard src={content.images.product} width={420} height={600} />
         </div>
 
-        {product.oldPrice ? (
+        {content.oldPrice ? (
           <div
             style={{
               marginTop: 40,
@@ -41,13 +41,13 @@ export const Offer: React.FC<{ product: Product }> = ({ product }) => {
               opacity: enter(frame, 6, 10),
             }}
           >
-            {formatNumber(product.oldPrice)} {getCurrencyLabel(product.currency)}
+            {formatNumber(content.oldPrice)} {getCurrencyLabel(content.currency)}
           </div>
         ) : null}
 
         <div
           style={{
-            marginTop: product.oldPrice ? 0 : 50,
+            marginTop: content.oldPrice ? 0 : 50,
             display: "flex",
             alignItems: "baseline",
             gap: 24,
@@ -58,17 +58,17 @@ export const Offer: React.FC<{ product: Product }> = ({ product }) => {
           <span style={{ fontSize: 180, fontWeight: 900, lineHeight: 1.1 }}>
             {formatNumber(counted)}
           </span>
-          <span style={{ fontSize: 80, fontWeight: 800 }}>{getCurrencyLabel(product.currency)}</span>
+          <span style={{ fontSize: 80, fontWeight: 800 }}>{getCurrencyLabel(content.currency)}</span>
         </div>
 
-        {product.offer ? (
+        {content.offer ? (
           <Pill
             background={theme.accent}
             color={theme.dark}
             fontSize={56}
             style={{ marginTop: 20, scale: String(pop(frame, fps, 30)) }}
           >
-            {product.offer}
+            {content.offer}
           </Pill>
         ) : null}
 

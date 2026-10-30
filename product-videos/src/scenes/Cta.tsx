@@ -3,16 +3,16 @@ import { interpolate, useCurrentFrame, useVideoConfig } from "remotion";
 import { Icon } from "../components/Icon";
 import { Scene } from "../components/Scene";
 import { enter, pop } from "../lib/anim";
-import type { Product } from "../schema";
+import type { AdContent } from "../schema";
 
 // لحظات ضغط الإيد على الزرار
 const TAPS = [42, 96];
 const TAP_LENGTH = 16;
 
-export const Cta: React.FC<{ product: Product }> = ({ product }) => {
+export const Cta: React.FC<{ content: AdContent }> = ({ content }) => {
   const frame = useCurrentFrame();
   const { fps } = useVideoConfig();
-  const { theme, cta } = product;
+  const { theme, cta } = content;
 
   const tap = TAPS.find((t) => frame >= t - 10 && frame < t + TAP_LENGTH);
   const press = tap === undefined ? 0 : interpolate(frame, [tap - 10, tap, tap + TAP_LENGTH], [0, 1, 0], {
