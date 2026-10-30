@@ -1,0 +1,633 @@
+<!doctype html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>داش كام QUAD CAMERA — 4 كاميرات لسيارتك</title>
+<meta name="description" content="داش كام بـ4 كاميرات: گدّام، ورا، جنب وداخل السيارة. رؤية ليلية، ضمان سنتين، والدفع عند الاستلام لكل المحافظات.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;800;900&display=swap" rel="stylesheet">
+<style>
+:root{
+  --ink:#0b1220;
+  --ink-2:#121c30;
+  --ink-3:#1b2942;
+  --text:#0f172a;
+  --muted:#5b6478;
+  --line:#e6e8ee;
+  --bg:#ffffff;
+  --bg-soft:#f5f6f9;
+  --accent:#ffb400;
+  --accent-dark:#e09e00;
+  --rec:#ff3b30;
+  --good:#16a34a;
+  --bad:#dc2626;
+  --radius:18px;
+  --shadow:0 10px 30px rgba(11,18,32,.10);
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{font-family:"Cairo",system-ui,sans-serif;color:var(--text);background:var(--bg);line-height:1.7;font-size:17px;-webkit-font-smoothing:antialiased}
+img,svg{display:block;max-width:100%}
+.wrap{max-width:560px;margin:0 auto;padding:0 16px}
+section{padding:56px 0}
+h1,h2,h3{line-height:1.35;font-weight:800}
+h2{font-size:clamp(24px,6vw,30px);margin-bottom:12px;text-align:center}
+.lead{color:var(--muted);text-align:center;margin-bottom:28px}
+.dark{background:var(--ink);color:#fff}
+.dark .lead{color:#b7c0d4}
+.soft{background:var(--bg-soft)}
+.ico{width:24px;height:24px;flex:none}
+
+/* CTA */
+.cta{display:flex;align-items:center;justify-content:center;gap:10px;width:100%;padding:17px 20px;border:0;border-radius:14px;background:var(--accent);color:var(--ink);font:800 clamp(15px,4.4vw,19px)/1.2 "Cairo",sans-serif;white-space:nowrap;text-decoration:none;cursor:pointer;box-shadow:0 8px 22px rgba(255,180,0,.35);transition:transform .15s,background .15s}
+.cta:hover{background:var(--accent-dark)}
+.cta:active{transform:scale(.98)}
+.cta .ico{width:22px;height:22px}
+.cta-note{text-align:center;font-size:14px;color:var(--muted);margin-top:10px}
+.dark .cta-note{color:#b7c0d4}
+
+/* 01 strip */
+.strip{background:var(--accent);color:var(--ink);text-align:center;font-weight:700;font-size:13px;padding:9px 12px}
+
+/* 02 hero */
+.hero{padding:28px 0 44px;background:radial-gradient(120% 70% at 50% 0%,#1d2c4a 0%,var(--ink) 60%)}
+.hero h1{font-size:clamp(28px,8vw,40px);font-weight:900;text-align:center;margin-bottom:12px}
+.hero h1 em{font-style:normal;color:var(--accent)}
+.hero .sub{text-align:center;color:#c9d1e3;margin-bottom:22px}
+.screen{background:#05080f;border-radius:20px;padding:10px;box-shadow:0 20px 50px rgba(0,0,0,.5),inset 0 0 0 2px #24324f;margin-bottom:22px}
+.quad{display:grid;grid-template-columns:1fr 1fr;gap:6px}
+.cam{position:relative;aspect-ratio:16/10;border-radius:10px;overflow:hidden;background:linear-gradient(180deg,#22324f 0%,#33466b 42%,#3b3f47 43%,#2a2d33 100%)}
+.cam::after{content:"";position:absolute;left:50%;bottom:0;width:6px;height:46%;transform:translateX(-50%) perspective(60px) rotateX(40deg);background:repeating-linear-gradient(180deg,#ffd54a 0 10px,transparent 10px 20px);opacity:.85}
+.cam.in{background:linear-gradient(180deg,#1a1f2b,#2b2f3a)}
+.cam.in::after{display:none}
+.cam.in .seat{position:absolute;bottom:0;width:34%;height:48%;background:#3d4352;border-radius:14px 14px 0 0}
+.cam.in .seat:first-of-type{right:10%}
+.cam.in .seat:last-of-type{left:10%}
+.cam.side{background:linear-gradient(180deg,#22324f 0%,#33466b 50%,#454a54 51%,#2a2d33 100%)}
+.cam.side::after{width:70%;height:4px;bottom:24%;transform:translateX(-50%);background:repeating-linear-gradient(90deg,#fff 0 14px,transparent 14px 26px);opacity:.6}
+.tag{position:absolute;top:6px;right:6px;z-index:2;background:rgba(0,0,0,.6);color:#fff;font-size:12px;font-weight:700;padding:1px 8px;border-radius:6px}
+.rec{position:absolute;top:7px;left:7px;z-index:2;display:flex;align-items:center;gap:4px;color:#fff;font:700 10px/1 system-ui,sans-serif;letter-spacing:.5px}
+.rec::before{content:"";width:7px;height:7px;border-radius:50%;background:var(--rec);animation:blink 1.2s infinite}
+@keyframes blink{50%{opacity:.2}}
+.screen-cap{text-align:center;font-size:12px;color:#7d89a3;margin-top:8px}
+.price-box{display:flex;align-items:center;justify-content:center;gap:14px;flex-wrap:wrap;margin-bottom:6px}
+.price-now{font-size:36px;font-weight:900;color:#fff}
+.price-now small{font-size:18px;font-weight:700}
+.price-old{font-size:20px;color:#8c97ad;text-decoration:line-through}
+.save{background:var(--rec);color:#fff;font-size:14px;font-weight:800;padding:3px 10px;border-radius:999px}
+.ship-line{text-align:center;color:#c9d1e3;font-size:15px;margin-bottom:18px}
+.chips{display:flex;flex-wrap:wrap;justify-content:center;gap:8px;margin-top:16px}
+.chip{display:flex;align-items:center;gap:6px;background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.12);padding:5px 12px;border-radius:999px;font-size:13px;font-weight:600;color:#e3e8f3}
+.chip .ico{width:16px;height:16px;color:var(--accent)}
+
+/* 03 trust */
+.trust{padding:20px 0;border-bottom:1px solid var(--line)}
+.trust-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.trust-item{display:flex;align-items:center;gap:10px;background:var(--bg-soft);border-radius:14px;padding:12px;font-weight:700;font-size:14px;line-height:1.4}
+.trust-item .ico{color:var(--ink);background:var(--accent);border-radius:10px;padding:6px;width:34px;height:34px}
+
+/* 04 problem */
+.cards{display:grid;gap:12px}
+.pcard{display:flex;gap:14px;align-items:flex-start;background:#fff;border:1px solid var(--line);border-radius:var(--radius);padding:16px;box-shadow:var(--shadow)}
+.pcard .num{flex:none;width:36px;height:36px;border-radius:50%;background:var(--ink);color:var(--accent);display:grid;place-items:center;font-weight:900}
+.pcard p{font-weight:600}
+
+/* 05 cost */
+.cost{list-style:none;display:grid;gap:10px}
+.cost li{display:flex;gap:12px;align-items:center;background:#fff4f4;border:1px solid #fbd5d5;border-radius:14px;padding:14px 16px;font-weight:700}
+.cost .ico{color:var(--bad)}
+
+/* 06 before/after */
+.ba{display:grid;gap:12px}
+.ba-card{border-radius:var(--radius);padding:20px}
+.ba-card h3{font-size:15px;letter-spacing:.3px;margin-bottom:6px;display:flex;align-items:center;gap:8px}
+.ba-before{background:#fff;border:1px solid var(--line)}
+.ba-before h3{color:var(--bad)}
+.ba-after{background:var(--ink);color:#fff}
+.ba-after h3{color:var(--accent)}
+.ba-card p{font-weight:600}
+
+/* 07 mechanism */
+.mech{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin:8px 0 22px}
+.mech figure{background:var(--ink-2);border-radius:var(--radius);padding:14px 10px 12px;text-align:center}
+.mech figcaption{font-size:14px;font-weight:700;margin-top:8px;color:#c9d1e3}
+.mech figure.win{box-shadow:inset 0 0 0 2px var(--accent)}
+.mech figure.win figcaption{color:var(--accent)}
+.mech-text{color:#c9d1e3;text-align:center}
+.mech-text b{color:#fff}
+
+/* 09 benefits */
+.ben{display:grid;gap:14px}
+.bcard{border-radius:var(--radius);padding:20px;background:#fff;border:1px solid var(--line);box-shadow:var(--shadow)}
+.bcard .head{display:flex;gap:12px;align-items:center;margin-bottom:8px}
+.bcard .head .ico{width:44px;height:44px;padding:10px;border-radius:12px;background:var(--ink);color:var(--accent)}
+.bcard h3{font-size:19px}
+.bcard p{color:var(--muted)}
+.bcard .note{font-size:13px;margin-top:8px;background:var(--bg-soft);border-radius:10px;padding:8px 12px;color:var(--text)}
+
+/* 10 use cases */
+.uses{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.ucard{background:#fff;border:1px solid var(--line);border-radius:var(--radius);padding:16px}
+.ucard .ico{width:30px;height:30px;color:var(--accent-dark);margin-bottom:8px}
+.ucard h3{font-size:16px;margin-bottom:4px}
+.ucard p{font-size:14px;color:var(--muted);line-height:1.6}
+.ucard p b{color:var(--text)}
+
+/* 11 steps */
+.steps{display:grid;gap:0;counter-reset:s}
+.step{display:flex;gap:16px;position:relative;padding-bottom:22px}
+.step:not(:last-child)::before{content:"";position:absolute;right:21px;top:44px;bottom:0;width:2px;background:var(--line)}
+.step .n{flex:none;width:44px;height:44px;border-radius:50%;background:var(--accent);color:var(--ink);display:grid;place-items:center;font-weight:900;font-size:19px}
+.step h3{font-size:18px}
+.step p{color:var(--muted)}
+
+/* 12 proof */
+.proof{display:grid;gap:12px}
+.prow{display:flex;gap:14px;align-items:center;background:var(--ink-2);border-radius:var(--radius);padding:16px}
+.prow .ico{width:44px;height:44px;padding:10px;border-radius:12px;background:rgba(255,180,0,.12);color:var(--accent)}
+.prow h3{font-size:17px}
+.prow p{color:#b7c0d4;font-size:15px}
+
+/* 13 compare */
+.tbl-wrap{border-radius:var(--radius);overflow:hidden;border:1px solid var(--line);box-shadow:var(--shadow)}
+table{width:100%;border-collapse:collapse;font-size:14px;background:#fff}
+th,td{padding:12px 8px;text-align:center;border-bottom:1px solid var(--line)}
+th{background:var(--bg-soft);font-weight:800;font-size:13px}
+td:first-child,th:first-child{text-align:right;font-weight:700;padding-right:12px}
+th.us,td.us{background:#fff8e6}
+th.us{background:var(--ink);color:var(--accent)}
+tr:last-child td{border-bottom:0}
+.y{color:var(--good);font-weight:900;font-size:18px}
+.n-{color:#b4bac6;font-weight:900;font-size:18px}
+.t-sm{font-size:12px;color:var(--muted);display:block;line-height:1.4}
+
+/* 14 offer */
+.offer{background:#fff;color:var(--text);border-radius:22px;padding:24px 20px;box-shadow:0 20px 50px rgba(0,0,0,.35);position:relative;overflow:hidden}
+.offer::before{content:"عرض";position:absolute;top:16px;left:-34px;transform:rotate(-45deg);background:var(--rec);color:#fff;font-weight:800;font-size:13px;padding:2px 40px}
+.offer h3{text-align:center;font-size:20px;margin-bottom:14px}
+.offer-row{display:flex;justify-content:space-between;align-items:center;padding:12px 0;border-bottom:1px dashed var(--line);font-weight:600}
+.offer-row s{color:#9aa3b5}
+.offer-row .big{font-size:24px;font-weight:900}
+.offer-row .green{color:var(--good);font-weight:800}
+.offer-total{display:flex;justify-content:space-between;align-items:center;background:var(--ink);color:#fff;border-radius:14px;padding:14px 16px;margin:16px 0;font-weight:800}
+.offer-total b{font-size:24px;color:var(--accent)}
+
+/* 15 risk */
+.risk{list-style:none;display:grid;gap:10px}
+.risk li{display:flex;gap:14px;align-items:center;background:#fff;border:1px solid var(--line);border-radius:14px;padding:14px 16px}
+.risk .ico{color:var(--good);width:28px;height:28px}
+.risk b{display:block}
+.risk span{color:var(--muted);font-size:14px}
+
+/* 16 faq */
+.faq{display:grid;gap:10px}
+.faq details{background:#fff;border:1px solid var(--line);border-radius:14px;overflow:hidden}
+.faq summary{list-style:none;cursor:pointer;padding:16px 18px;font-weight:800;display:flex;justify-content:space-between;align-items:center;gap:12px}
+.faq summary::-webkit-details-marker{display:none}
+.faq summary::after{content:"+";flex:none;width:28px;height:28px;border-radius:50%;background:var(--bg-soft);display:grid;place-items:center;font-size:20px;font-weight:700;transition:transform .2s}
+.faq details[open] summary::after{transform:rotate(45deg);background:var(--accent)}
+.faq details p{padding:0 18px 16px;color:var(--muted)}
+
+/* 17 close + form */
+.close h2{font-size:clamp(26px,7vw,34px)}
+.form{background:#fff;color:var(--text);border-radius:22px;padding:22px 18px;margin-top:24px;box-shadow:0 20px 50px rgba(0,0,0,.35)}
+.form-sum{background:var(--bg-soft);border-radius:14px;padding:12px 14px;margin-bottom:18px;font-size:15px}
+.form-sum div{display:flex;justify-content:space-between;padding:3px 0}
+.form-sum .tot{border-top:1px solid var(--line);margin-top:6px;padding-top:8px;font-weight:900;font-size:18px}
+.field{margin-bottom:14px}
+.field label{display:block;font-weight:800;font-size:15px;margin-bottom:6px}
+.field .hint{font-weight:600;font-size:13px;color:var(--muted)}
+.field input,.field select{width:100%;padding:14px;border:1.5px solid #d5d9e2;border-radius:12px;font:600 17px "Cairo",sans-serif;background:#fff;color:var(--text);transition:border-color .15s}
+.field input:focus,.field select:focus{outline:0;border-color:var(--accent);box-shadow:0 0 0 3px rgba(255,180,0,.25)}
+.field input[type=tel]{direction:ltr;text-align:right}
+.field .err{display:none;color:var(--bad);font-size:13px;font-weight:700;margin-top:4px}
+.field.bad input,.field.bad select{border-color:var(--bad)}
+.field.bad .err{display:block}
+.form .cta-note{color:var(--muted)}
+.thanks{display:none;text-align:center;padding:20px 6px}
+.thanks .ico{width:64px;height:64px;color:var(--good);margin:0 auto 10px}
+.thanks h3{font-size:22px;margin-bottom:6px}
+.thanks p{color:var(--muted)}
+
+footer{text-align:center;font-size:13px;color:#7d89a3;padding:24px 16px 110px;background:var(--ink)}
+
+/* sticky */
+.sticky{position:fixed;left:0;right:0;bottom:0;z-index:50;background:rgba(255,255,255,.96);backdrop-filter:blur(8px);border-top:1px solid var(--line);padding:10px 16px calc(10px + env(safe-area-inset-bottom));transform:translateY(110%);transition:transform .25s}
+.sticky.show{transform:none}
+.sticky .in{max-width:560px;margin:0 auto;display:flex;gap:12px;align-items:center}
+.sticky .p{flex:none;line-height:1.2}
+.sticky .p b{display:block;font-size:20px;font-weight:900}
+.sticky .p s{font-size:13px;color:#9aa3b5}
+.sticky .cta{padding:14px 12px;font-size:17px}
+
+@media (min-width:700px){
+  .cards{grid-template-columns:1fr 1fr}
+  .ba{grid-template-columns:1fr 1fr}
+}
+@media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
+</style>
+</head>
+<body>
+
+<!-- Icon sprite -->
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <defs>
+    <symbol id="i-cash" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="6" width="20" height="12" rx="2"/><circle cx="12" cy="12" r="2.5"/><path d="M6 12h.01M18 12h.01"/></symbol>
+    <symbol id="i-truck" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 6h11v10H3zM14 9h4l3 3v4h-7"/><circle cx="7" cy="17.5" r="1.8"/><circle cx="17.5" cy="17.5" r="1.8"/></symbol>
+    <symbol id="i-shield" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3l8 3v6c0 4.5-3.4 8.3-8 9-4.6-.7-8-4.5-8-9V6z"/><path d="M8.5 12l2.5 2.5 4.5-5"/></symbol>
+    <symbol id="i-swap" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 8h13l-3-3M20 16H7l3 3"/></symbol>
+    <symbol id="i-phone" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 3h4l2 5-2.5 1.5a11 11 0 005 5L15 12l5 2v4a2 2 0 01-2 2A16 16 0 013 5a2 2 0 012-2z"/></symbol>
+    <symbol id="i-lock" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="10" width="16" height="11" rx="2"/><path d="M8 10V7a4 4 0 018 0v3"/></symbol>
+    <symbol id="i-cam" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="6" width="14" height="12" rx="2"/><path d="M16 10l6-3v10l-6-3"/></symbol>
+    <symbol id="i-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 14.5A8 8 0 019.5 4 8 8 0 1020 14.5z"/></symbol>
+    <symbol id="i-eye" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 12s3.5-7 10-7 10 7 10 7-3.5 7-10 7S2 12 2 12z"/><circle cx="12" cy="12" r="3"/></symbol>
+    <symbol id="i-x" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M6 6l12 12M18 6L6 18"/></symbol>
+    <symbol id="i-check" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M7.5 12.5l3 3 6-6.5"/></symbol>
+    <symbol id="i-taxi" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 11l1.5-4.5A2 2 0 018.4 5h7.2a2 2 0 011.9 1.5L19 11M3 11h18v6H3z"/><circle cx="7" cy="17" r="1.5"/><circle cx="17" cy="17" r="1.5"/><path d="M10 2h4v3h-4z"/></symbol>
+    <symbol id="i-park" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="3"/><path d="M9 17V7h4a3 3 0 010 6H9"/></symbol>
+    <symbol id="i-road" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M8 3L4 21M16 3l4 18M12 4v2M12 10v3M12 17v3"/></symbol>
+    <symbol id="i-home" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 11l9-7 9 7v9a1 1 0 01-1 1h-5v-6h-6v6H4a1 1 0 01-1-1z"/></symbol>
+    <symbol id="i-arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M15 6l-6 6 6 6"/></symbol>
+    <symbol id="i-tool" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14.7 6.3a4 4 0 00-5.4 5.4L3 18l3 3 6.3-6.3a4 4 0 005.4-5.4l-2.5 2.5-2.4-.6-.6-2.4z"/></symbol>
+  </defs>
+</svg>
+
+<!-- 01 Message-Match Strip -->
+<div class="strip">🚗 4 كاميرات تسجّل گدّام، ورا، الجنب وداخل السيارة · الدفع عند الاستلام</div>
+
+<!-- 02 Hero -->
+<header class="hero dark">
+  <div class="wrap">
+    <h1>ضربك وگال إنت الغلطان؟<br><em>هالمرة الكاميرا تحچي.</em></h1>
+    <p class="sub">داش كام <b>QUAD CAMERA</b> بـ4 كاميرات: گدّام، ورا، جنب وداخل السيارة. تسجّل طول طريقك، بالنهار وبالليل.</p>
+
+    <div class="screen" role="img" aria-label="شاشة الجهاز تعرض 4 كاميرات بنفس الوقت">
+      <div class="quad">
+        <div class="cam"><span class="tag">گدّام</span><span class="rec">REC</span></div>
+        <div class="cam" style="transform:scaleX(-1)"><span class="tag" style="transform:scaleX(-1)">ورا</span><span class="rec" style="transform:scaleX(-1)">REC</span></div>
+        <div class="cam side"><span class="tag">الجنب</span><span class="rec">REC</span></div>
+        <div class="cam in"><span class="tag">داخل</span><span class="rec">REC</span><span class="seat"></span><span class="seat"></span></div>
+      </div>
+    </div>
+
+    <div class="price-box">
+      <span class="price-now">67,000 <small>د.ع</small></span>
+      <span class="price-old">80,000 د.ع</span>
+      <span class="save">وفّر 13,000</span>
+    </div>
+    <p class="ship-line">+ توصيل 7,000 د.ع لكل المحافظات</p>
+
+    <a href="#order" class="cta">اطلبها هسة — الدفع عند الاستلام <svg class="ico"><use href="#i-arrow"/></svg></a>
+
+    <div class="chips">
+      <span class="chip"><svg class="ico"><use href="#i-shield"/></svg>ضمان سنتين</span>
+      <span class="chip"><svg class="ico"><use href="#i-swap"/></svg>استبدال خلال 14 يوم</span>
+      <span class="chip"><svg class="ico"><use href="#i-truck"/></svg>توصيل 1–3 أيام</span>
+    </div>
+  </div>
+</header>
+
+<!-- 03 Instant Trust Strip -->
+<div class="trust">
+  <div class="wrap trust-grid">
+    <div class="trust-item"><svg class="ico"><use href="#i-cash"/></svg>الدفع عند الاستلام</div>
+    <div class="trust-item"><svg class="ico"><use href="#i-truck"/></svg>توصيل 1–3 أيام لكل المحافظات</div>
+    <div class="trust-item"><svg class="ico"><use href="#i-shield"/></svg>ضمان سنتين</div>
+    <div class="trust-item"><svg class="ico"><use href="#i-swap"/></svg>استبدال خلال 14 يوم</div>
+  </div>
+</div>
+
+<!-- 04 Problem Recognition -->
+<section>
+  <div class="wrap">
+    <h2>إذا تسوق بالعراق، أكيد صارت وياك وحدة من هذني:</h2>
+    <p class="lead">وبكل وحدة منها، كان حقك ممكن يضيع.</p>
+    <div class="cards">
+      <div class="pcard"><span class="num">1</span><p>واحد ضربك من ورا، ونزل يصيح: <b>"إنت وگفت فجأة!"</b></p></div>
+      <div class="pcard"><span class="num">2</span><p>رجعت لسيارتك لگيتها مخدوشة… <b>ومحد شاف شي.</b></p></div>
+      <div class="pcard"><span class="num">3</span><p>حادث بسيط صار عركة بالشارع، وكل واحد يحلف إنه هو الصح.</p></div>
+      <div class="pcard"><span class="num">4</span><p>راكب سوّى مشكلة داخل سيارتك، وما عندك شي تثبت بيه.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- 05 Cost of Staying the Same -->
+<section class="soft">
+  <div class="wrap">
+    <h2>وبالآخر… منو يدفع؟</h2>
+    <p class="lead">بدون دليل، إنت اللي تدفع.</p>
+    <ul class="cost">
+      <li><svg class="ico"><use href="#i-x"/></svg>تصليح وصبغ مو غلطتك.</li>
+      <li><svg class="ico"><use href="#i-x"/></svg>ساعات بالشارع، وحچيك ضد حچيه.</li>
+      <li><svg class="ico"><use href="#i-x"/></svg>وكل مرة تطلع بسيارتك، تطلع وإنت قلقان.</li>
+    </ul>
+  </div>
+</section>
+
+<!-- 06 Desired Transformation -->
+<section>
+  <div class="wrap">
+    <h2>الفرق بسيط: يا تتعارك…<br>يا تگله "تعال نشوف الفيديو"</h2>
+    <div class="ba" style="margin-top:24px">
+      <div class="ba-card ba-before">
+        <h3><svg class="ico"><use href="#i-x"/></svg>قبل</h3>
+        <p>حادث = عركة، ماكو شهود، وحقك يضيع.</p>
+      </div>
+      <div class="ba-card ba-after">
+        <h3><svg class="ico"><use href="#i-check"/></svg>بعد</h3>
+        <p>ترجع للتسجيل وتشوف شنو صار بالضبط، من كل الجهات.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 07 Unique Mechanism -->
+<section class="dark">
+  <div class="wrap">
+    <h2>الداش كام العادي يشوف گدّامك بس…<br><span style="color:var(--accent)">والضربة مرات تجي من الجنب أو من ورا</span></h2>
+    <div class="mech">
+      <figure>
+        <svg viewBox="0 0 120 170" aria-hidden="true">
+          <path d="M60 52 L18 4 L102 4 Z" fill="rgba(255,255,255,.18)"/>
+          <rect x="38" y="50" width="44" height="80" rx="14" fill="#3b4a6b"/>
+          <rect x="44" y="64" width="32" height="18" rx="5" fill="#1b2942"/>
+          <rect x="44" y="104" width="32" height="14" rx="5" fill="#1b2942"/>
+          <circle cx="60" cy="54" r="4" fill="#fff"/>
+        </svg>
+        <figcaption>كاميرا وحدة</figcaption>
+      </figure>
+      <figure class="win">
+        <svg viewBox="0 0 120 170" aria-hidden="true">
+          <path d="M60 52 L18 4 L102 4 Z" fill="rgba(255,180,0,.35)"/>
+          <path d="M60 128 L18 168 L102 168 Z" fill="rgba(255,180,0,.35)"/>
+          <path d="M38 90 L0 60 L0 120 Z" fill="rgba(255,180,0,.35)"/>
+          <circle cx="60" cy="90" r="16" fill="rgba(255,180,0,.25)"/>
+          <rect x="38" y="50" width="44" height="80" rx="14" fill="#3b4a6b"/>
+          <rect x="44" y="64" width="32" height="18" rx="5" fill="#1b2942"/>
+          <rect x="44" y="104" width="32" height="14" rx="5" fill="#1b2942"/>
+          <circle cx="60" cy="54" r="4" fill="#ffb400"/>
+          <circle cx="60" cy="126" r="4" fill="#ffb400"/>
+          <circle cx="40" cy="90" r="4" fill="#ffb400"/>
+          <circle cx="60" cy="90" r="4" fill="#ffb400"/>
+        </svg>
+        <figcaption>QUAD CAMERA — 4 جهات</figcaption>
+      </figure>
+    </div>
+    <p class="mech-text">الكاميرا الوحدة تفوّت عليك هواية زوايا، وموبايلك ما يكون شغّال وقت الحادث. هنا <b>4 كاميرات تسجّل سوا</b>: گدّام، ورا، الجنب، وداخل السيارة — و<b>تسجيل متواصل</b> يكمل وإنت ما تسوي شي.</p>
+  </div>
+</section>
+
+<div class="wrap" style="padding:32px 16px 8px"><a href="#order" class="cta">اطلبها هسة — الدفع عند الاستلام <svg class="ico"><use href="#i-arrow"/></svg></a></div>
+
+<!-- 09 Benefit Stack -->
+<section>
+  <div class="wrap">
+    <h2>ليش <bdi>QUAD CAMERA</bdi>؟</h2>
+    <p class="lead">3 أسباب تخليك تسوق وبالك مرتاح.</p>
+    <div class="ben">
+      <div class="bcard">
+        <div class="head"><svg class="ico"><use href="#i-cam"/></svg><h3>ماكو زاوية تضيع حقك بيها</h3></div>
+        <p>4 كاميرات: گدّام، ورا، جنب وداخل السيارة.</p>
+      </div>
+      <div class="bcard">
+        <div class="head"><svg class="ico"><use href="#i-moon"/></svg><h3>الطريق بالليل مسجّل هم</h3></div>
+        <p>رؤية ليلية للي يسوق متأخر أو يسافر طرق خارجية.</p>
+      </div>
+      <div class="bcard">
+        <div class="head"><svg class="ico"><use href="#i-park"/></svg><h3>تنزل من سيارتك وبالك مرتاح</h3></div>
+        <p>مراقبة السيارة وهي واگفة + تسجيل متواصل.</p>
+        <p class="note">المراقبة وهي طافية تحتاج توصيل على كهرباء السيارة.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 10 Use Cases -->
+<section class="soft">
+  <div class="wrap">
+    <h2>منو يحتاجها؟</h2>
+    <p class="lead">إذا إنت واحد من هذني، هاي إلك.</p>
+    <div class="uses">
+      <div class="ucard"><svg class="ico"><use href="#i-taxi"/></svg><h3>سايق تكسي / بلي / كريم</h3><p>مشكلة ويّا راكب؟ <b>الكاميرا الداخلية مسجّلة كل شي.</b></p></div>
+      <div class="ucard"><svg class="ico"><use href="#i-park"/></svg><h3>يوگف بالشارع أو الباركينگ</h3><p>رجع لگى خدش؟ <b>المراقبة تبيّن شنو صار.</b></p></div>
+      <div class="ucard"><svg class="ico"><use href="#i-road"/></svg><h3>يسافر بالليل</h3><p>طريق خارجي مظلم؟ <b>الرؤية الليلية تكمل التسجيل.</b></p></div>
+      <div class="ucard"><svg class="ico"><use href="#i-home"/></svg><h3>رب البيت</h3><p>ابنه يسوق السيارة؟ <b>يعرف شنو صار بالطريق.</b></p></div>
+    </div>
+  </div>
+</section>
+
+<!-- 11 How It Works -->
+<section>
+  <div class="wrap">
+    <h2>3 خطوات وبس</h2>
+    <p class="lead">من الطلب لحد ما تسجّل.</p>
+    <div class="steps">
+      <div class="step"><span class="n">1</span><div><h3>تطلب من الفورم</h3><p>ونخابرك خلال اليوم نأكد الطلب.</p></div></div>
+      <div class="step"><span class="n">2</span><div><h3>يوصلك خلال 1–3 أيام</h3><p>وتدفع عند الاستلام.</p></div></div>
+      <div class="step"><span class="n">3</span><div><h3>تركّبها بسيارتك بسهولة</h3><p>وتبدي تسجّل.</p></div></div>
+    </div>
+  </div>
+</section>
+
+<!-- 12 Proof Stack -->
+<section class="dark">
+  <div class="wrap">
+    <h2>ليش تثق بيها؟</h2>
+    <p class="lead">لأن إحنا واثقين بيها قبلك.</p>
+    <div class="proof">
+      <div class="prow"><svg class="ico"><use href="#i-shield"/></svg><div><h3>ضمان سنتين</h3><p>ما نعطي ضمان سنتين على جهاز ما نثق بيه.</p></div></div>
+      <div class="prow"><svg class="ico"><use href="#i-swap"/></svg><div><h3>استبدال خلال 14 يوم</h3><p>إذا ما عجبتك، تگدر تستبدلها.</p></div></div>
+      <div class="prow"><svg class="ico"><use href="#i-cam"/></svg><div><h3>المنطق بسيط</h3><p>4 كاميرات = 4 جهات مسجّلة بدل وحدة.</p></div></div>
+    </div>
+  </div>
+</section>
+
+<!-- 13 Why This vs Alternatives -->
+<section>
+  <div class="wrap">
+    <h2>قارن بنفسك</h2>
+    <p class="lead">شنو الفرق بين <bdi>QUAD CAMERA</bdi> والبدائل؟</p>
+    <div class="tbl-wrap">
+      <table>
+        <thead><tr><th></th><th>موبايلك</th><th>كاميرا وحدة</th><th class="us">QUAD</th></tr></thead>
+        <tbody>
+          <tr><td>يسجّل طول الطريق</td><td><span class="n-">✕</span><span class="t-sm">لازم تشغّله</span></td><td><span class="y">✓</span></td><td class="us"><span class="y">✓</span></td></tr>
+          <tr><td>يشوف ورا والجنب</td><td><span class="n-">✕</span></td><td><span class="n-">✕</span><span class="t-sm">أغلبها گدّام بس</span></td><td class="us"><span class="y">✓</span></td></tr>
+          <tr><td>داخل السيارة</td><td><span class="n-">✕</span></td><td><span class="n-">✕</span></td><td class="us"><span class="y">✓</span></td></tr>
+          <tr><td>رؤية ليلية</td><td><span class="t-sm">حسب الموبايل</span></td><td><span class="t-sm">تختلف</span></td><td class="us"><span class="y">✓</span></td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</section>
+
+<!-- 14 Offer Stack -->
+<section class="dark">
+  <div class="wrap">
+    <h2>كل هالحماية بسعر جهاز واحد</h2>
+    <p class="lead">واضح من هسة، بدون مفاجآت.</p>
+    <div class="offer">
+      <h3>داش كام QUAD CAMERA بـ4 كاميرات</h3>
+      <div class="offer-row"><span>السعر قبل</span><s>80,000 د.ع</s></div>
+      <div class="offer-row"><span>السعر هسة</span><span class="big">67,000 د.ع</span></div>
+      <div class="offer-row"><span>توفّر</span><span class="green">13,000 د.ع</span></div>
+      <div class="offer-row"><span>التوصيل لكل المحافظات</span><span>7,000 د.ع</span></div>
+      <div class="offer-total"><span>المجموع عند الاستلام</span><b>74,000 د.ع</b></div>
+      <a href="#order" class="cta">اطلبها هسة — الدفع عند الاستلام <svg class="ico"><use href="#i-arrow"/></svg></a>
+    </div>
+  </div>
+</section>
+
+<!-- 15 Risk Reversal & Logistics -->
+<section class="soft">
+  <div class="wrap">
+    <h2>اطلب وإنت مرتاح</h2>
+    <p class="lead">كل شي واضح قبل لا تطلب.</p>
+    <ul class="risk">
+      <li><svg class="ico"><use href="#i-cash"/></svg><div><b>ما تدفع شي هسة</b><span>تدفع من يوصلك.</span></div></li>
+      <li><svg class="ico"><use href="#i-phone"/></svg><div><b>نخابرك خلال اليوم</b><span>حتى نأكد الطلب.</span></div></li>
+      <li><svg class="ico"><use href="#i-truck"/></svg><div><b>التوصيل 1–3 أيام</b><span>لكل المحافظات.</span></div></li>
+      <li><svg class="ico"><use href="#i-shield"/></svg><div><b>ضمان سنتين</b><span>على الجهاز.</span></div></li>
+      <li><svg class="ico"><use href="#i-swap"/></svg><div><b>استبدال خلال 14 يوم</b><span>إذا ما عجبتك.</span></div></li>
+      <li><svg class="ico"><use href="#i-lock"/></svg><div><b>رقمك بأمان</b><span>نستخدمه بس حتى نأكد الطلب ونوصّله.</span></div></li>
+    </ul>
+  </div>
+</section>
+
+<!-- 16 Objection-Killer FAQ -->
+<section>
+  <div class="wrap">
+    <h2>أسئلة تتكرر</h2>
+    <p class="lead">جوابها هنا قبل لا تسأل.</p>
+    <div class="faq">
+      <details><summary>تصوّر بالليل؟</summary><p>إي، بيها رؤية ليلية.</p></details>
+      <details><summary>شكد أدفع بالضبط؟</summary><p>67,000 د.ع + 7,000 توصيل = 74,000 د.ع، تدفعها عند الاستلام.</p></details>
+      <details><summary>توصلون لمحافظتي؟</summary><p>إي، نوصل لكل المحافظات بنفس السعر 7,000 د.ع، خلال 1–3 أيام.</p></details>
+      <details><summary>تركيبها صعب؟</summary><p>لا، تركيبها سهل وبسيط.</p></details>
+      <details><summary>تراقب السيارة وهي طافية؟</summary><p>إي، بس تحتاج توصيل على كهرباء السيارة.</p></details>
+      <details><summary>بيها ضمان؟</summary><p>إي، ضمان سنتين.</p></details>
+      <details><summary>إذا ما عجبتني؟</summary><p>تگدر تستبدلها خلال 14 يوم.</p></details>
+    </div>
+  </div>
+</section>
+
+<!-- 17 Final Close + Order Form -->
+<section class="dark close" id="order">
+  <div class="wrap">
+    <h2>الحادث ما يستأذن…<br><span style="color:var(--accent)">خلّي الكاميرا جاهزة قبله.</span></h2>
+    <p class="lead">4 كاميرات، رؤية ليلية، ضمان سنتين، والدفع عند الاستلام.</p>
+
+    <!-- اربط الفورم بمنصتك: غيّر action أو دالة الإرسال في السكربت تحت -->
+    <form class="form" id="orderForm" novalidate>
+      <div class="form-sum">
+        <div><span>داش كام QUAD CAMERA</span><span>67,000 د.ع</span></div>
+        <div><span>التوصيل</span><span>7,000 د.ع</span></div>
+        <div class="tot"><span>المجموع عند الاستلام</span><span>74,000 د.ع</span></div>
+      </div>
+
+      <div class="field">
+        <label for="name">الاسم الكامل</label>
+        <input id="name" name="name" type="text" autocomplete="name" required>
+        <div class="err">اكتب اسمك حتى نوصّل الطلب.</div>
+      </div>
+
+      <div class="field">
+        <label for="phone">رقم الموبايل <span class="hint">— حتى نخابرك ونأكد الطلب</span></label>
+        <input id="phone" name="phone" type="tel" inputmode="numeric" autocomplete="tel" placeholder="07XXXXXXXXX" maxlength="11" required>
+        <div class="err">الرقم لازم يبدي بـ07 ويكون 11 رقم.</div>
+      </div>
+
+      <div class="field">
+        <label for="gov">المحافظة</label>
+        <select id="gov" name="governorate" required>
+          <option value="">اختار محافظتك</option>
+          <option>بغداد</option><option>البصرة</option><option>نينوى</option><option>أربيل</option>
+          <option>السليمانية</option><option>دهوك</option><option>كركوك</option><option>الأنبار</option>
+          <option>بابل</option><option>كربلاء</option><option>النجف</option><option>واسط</option>
+          <option>ديالى</option><option>صلاح الدين</option><option>القادسية</option><option>ذي قار</option>
+          <option>ميسان</option><option>المثنى</option>
+        </select>
+        <div class="err">اختار المحافظة.</div>
+      </div>
+
+      <div class="field">
+        <label for="addr">العنوان <span class="hint">— المنطقة + أقرب نقطة دالة</span></label>
+        <input id="addr" name="address" type="text" autocomplete="street-address" placeholder="مثال: الكرادة، قرب جامع…" required>
+        <div class="err">اكتب المنطقة وأقرب نقطة دالة.</div>
+      </div>
+
+      <button type="submit" class="cta">أكّد طلبي — الدفع عند الاستلام</button>
+      <p class="cta-note">ما تدفع شي هسة. نخابرك اليوم نأكد الطلب، وتدفع من يوصلك.</p>
+    </form>
+
+    <div class="form thanks" id="thanks">
+      <svg class="ico"><use href="#i-check"/></svg>
+      <h3>وصلنا طلبك، شكرًا!</h3>
+      <p>راح نخابرك خلال اليوم حتى نأكد الطلب. خلي موبايلك قريب منك.</p>
+    </div>
+  </div>
+</section>
+
+<footer>© داش كام QUAD CAMERA · الدفع عند الاستلام لكل محافظات العراق</footer>
+
+<!-- Sticky Mobile CTA -->
+<div class="sticky" id="sticky" aria-hidden="true">
+  <div class="in">
+    <div class="p"><b>67,000 د.ع</b><s>80,000 د.ع</s></div>
+    <a href="#order" class="cta" tabindex="-1">اطلبها هسة</a>
+  </div>
+</div>
+
+<script>
+(function(){
+  // Sticky CTA: shows after the hero, hides while the order form is on screen
+  var sticky=document.getElementById('sticky');
+  var hero=document.querySelector('.hero');
+  var order=document.getElementById('order');
+  var pastHero=false, atOrder=false;
+  function update(){
+    var on=pastHero&&!atOrder;
+    sticky.classList.toggle('show',on);
+    sticky.setAttribute('aria-hidden',on?'false':'true');
+  }
+  if('IntersectionObserver' in window){
+    new IntersectionObserver(function(e){pastHero=!e[0].isIntersecting;update();}).observe(hero);
+    new IntersectionObserver(function(e){atOrder=e[0].isIntersecting;update();},{threshold:.15}).observe(order);
+  }
+
+  // Order form validation
+  var form=document.getElementById('orderForm');
+  var phone=document.getElementById('phone');
+  phone.addEventListener('input',function(){
+    // Convert Arabic-Indic digits and strip anything else
+    this.value=this.value.replace(/[٠-٩]/g,function(d){return '٠١٢٣٤٥٦٧٨٩'.indexOf(d);}).replace(/\D/g,'').slice(0,11);
+  });
+  var rules={
+    name:function(v){return v.trim().length>=3;},
+    phone:function(v){return /^07\d{9}$/.test(v);},
+    gov:function(v){return v!=='';},
+    addr:function(v){return v.trim().length>=5;}
+  };
+  function check(id){
+    var el=document.getElementById(id), ok=rules[id](el.value);
+    el.closest('.field').classList.toggle('bad',!ok);
+    return ok;
+  }
+  Object.keys(rules).forEach(function(id){
+    document.getElementById(id).addEventListener('blur',function(){check(id);});
+  });
+  form.addEventListener('submit',function(e){
+    e.preventDefault();
+    var ok=Object.keys(rules).map(check).every(Boolean);
+    if(!ok){form.querySelector('.bad input, .bad select').focus();return;}
+    // TODO: send the order to your platform here (fetch / form action / Pixel Purchase event)
+    form.style.display='none';
+    document.getElementById('thanks').style.display='block';
+    document.getElementById('thanks').scrollIntoView({behavior:'smooth',block:'center'});
+  });
+})();
+</script>
+</body>
+</html>
