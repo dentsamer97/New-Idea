@@ -118,14 +118,6 @@ h2{font-size:clamp(24px,6vw,30px);margin-bottom:12px;text-align:center}
 .mech-text{color:#c9d1e3;text-align:center}
 .mech-text b{color:#fff}
 
-/* 08 demo */
-.demo{display:grid;gap:14px}
-.shot{border-radius:var(--radius);overflow:hidden;border:1px solid var(--line);background:#fff;box-shadow:var(--shadow)}
-.shot .media{aspect-ratio:16/9;background:linear-gradient(135deg,#1b2942,#0b1220);display:grid;place-items:center;color:#7d89a3;font-size:14px;font-weight:600;text-align:center;padding:12px;position:relative}
-.shot .media .ico{width:48px;height:48px;color:var(--accent);margin:0 auto 6px}
-.shot .cap{padding:12px 16px;font-weight:700;display:flex;gap:10px;align-items:center}
-.shot .cap span{background:var(--accent);color:var(--ink);width:26px;height:26px;border-radius:50%;display:grid;place-items:center;font-size:14px;font-weight:900;flex:none}
-
 /* 09 benefits */
 .ben{display:grid;gap:14px}
 .bcard{border-radius:var(--radius);padding:20px;background:#fff;border:1px solid var(--line);box-shadow:var(--shadow)}
@@ -257,7 +249,6 @@ footer{text-align:center;font-size:13px;color:#7d89a3;padding:24px 16px 110px;ba
     <symbol id="i-park" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="3"/><path d="M9 17V7h4a3 3 0 010 6H9"/></symbol>
     <symbol id="i-road" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M8 3L4 21M16 3l4 18M12 4v2M12 10v3M12 17v3"/></symbol>
     <symbol id="i-home" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 11l9-7 9 7v9a1 1 0 01-1 1h-5v-6h-6v6H4a1 1 0 01-1-1z"/></symbol>
-    <symbol id="i-play" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M10 8.5l5.5 3.5-5.5 3.5z" fill="currentColor"/></symbol>
     <symbol id="i-arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M15 6l-6 6 6 6"/></symbol>
     <symbol id="i-tool" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14.7 6.3a4 4 0 00-5.4 5.4L3 18l3 3 6.3-6.3a4 4 0 005.4-5.4l-2.5 2.5-2.4-.6-.6-2.4z"/></symbol>
   </defs>
@@ -272,7 +263,6 @@ footer{text-align:center;font-size:13px;color:#7d89a3;padding:24px 16px 110px;ba
     <h1>ضربك وگال إنت الغلطان؟<br><em>هالمرة الكاميرا تحچي.</em></h1>
     <p class="sub">داش كام <b>QUAD CAMERA</b> بـ4 كاميرات: گدّام، ورا، جنب وداخل السيارة. تسجّل طول طريقك، بالنهار وبالليل.</p>
 
-    <!-- استبدل هذا العرض بصورة حقيقية من شاشة الجهاز لو توفرت -->
     <div class="screen" role="img" aria-label="شاشة الجهاز تعرض 4 كاميرات بنفس الوقت">
       <div class="quad">
         <div class="cam"><span class="tag">گدّام</span><span class="rec">REC</span></div>
@@ -389,30 +379,7 @@ footer{text-align:center;font-size:13px;color:#7d89a3;padding:24px 16px 110px;ba
   </div>
 </section>
 
-<!-- 08 Product Demonstration -->
-<section>
-  <div class="wrap">
-    <h2>شوف بعينك</h2>
-    <p class="lead">هيچ تشتغل وياك بالطريق.</p>
-    <div class="demo">
-      <!-- استبدل .media بصورة أو فيديو حقيقي من الجهاز لو توفر: <video src="..." autoplay muted loop playsinline></video> -->
-      <div class="shot">
-        <div class="media"><div><svg class="ico"><use href="#i-play"/></svg>الشاشة وعليها الـ4 كاميرات شغالين سوا</div></div>
-        <div class="cap"><span>1</span>4 كاميرات بنفس الوقت</div>
-      </div>
-      <div class="shot">
-        <div class="media"><div><svg class="ico"><use href="#i-moon"/></svg>تسجيل أثناء السواقة بالليل</div></div>
-        <div class="cap"><span>2</span>رؤية ليلية</div>
-      </div>
-      <div class="shot">
-        <div class="media"><div><svg class="ico"><use href="#i-eye"/></svg>فتح تسجيل قديم ومشاهدته</div></div>
-        <div class="cap"><span>3</span>ترجع للتسجيل وتشوف شنو صار</div>
-      </div>
-    </div>
-  </div>
-</section>
-
-<div class="wrap" style="padding-bottom:8px"><a href="#order" class="cta">اطلبها هسة — الدفع عند الاستلام <svg class="ico"><use href="#i-arrow"/></svg></a></div>
+<div class="wrap" style="padding:32px 16px 8px"><a href="#order" class="cta">اطلبها هسة — الدفع عند الاستلام <svg class="ico"><use href="#i-arrow"/></svg></a></div>
 
 <!-- 09 Benefit Stack -->
 <section>
