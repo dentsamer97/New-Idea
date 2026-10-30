@@ -1,0 +1,269 @@
+<!doctype html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>ثيمات Product Closer</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Changa:wght@500;800&family=Readex+Pro:wght@300;400;600&family=Lalezar&family=Vazirmatn:wght@400;700&family=El+Messiri:wght@600;700&family=IBM+Plex+Sans+Arabic:wght@400;500;700&family=Alexandria:wght@500;700&family=Aref+Ruqaa:wght@700&family=Noto+Naskh+Arabic:wght@400;600&family=Marhey:wght@500;700&family=Baloo+Bhaijaan+2:wght@400;600&family=Noto+Kufi+Arabic:wght@500;800&display=swap" rel="stylesheet">
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+body{background:#d9dade;font-family:"IBM Plex Sans Arabic",sans-serif;color:#1d1d1f;line-height:1.7}
+.intro{max-width:640px;margin:0 auto;padding:40px 16px 8px}
+.intro h1{font-family:"Noto Kufi Arabic",sans-serif;font-weight:800;font-size:28px;line-height:1.4}
+.intro p{color:#4b4f58;margin-top:8px}
+.theme{max-width:640px;margin:28px auto;padding:0 16px}
+.meta{display:flex;flex-wrap:wrap;justify-content:space-between;align-items:center;gap:8px;margin-bottom:10px}
+.meta h2{font:800 20px "Noto Kufi Arabic",sans-serif}
+.meta small{display:block;color:#5b5f68;font-size:13px}
+.sw{display:flex;gap:4px}
+.sw i{width:22px;height:22px;border-radius:50%;border:1px solid rgba(0,0,0,.15)}
+.frame{border-radius:14px;overflow:hidden;box-shadow:0 12px 30px rgba(0,0,0,.18)}
+.cta{display:block;width:100%;text-align:center;border:0;padding:16px;font-size:18px;font-weight:700;background:var(--cta);color:var(--cta-ink);border-radius:var(--radius);font-family:var(--font-body);cursor:pointer}
+.price-num{font-family:var(--font-display)}
+
+/* 1 Asphalt */
+.t1{--font-display:"Changa",sans-serif;--font-body:"Readex Pro",sans-serif;--bg:#e8e5de;--surface:#f4f2ed;--ink:#16181a;--muted:#5d5a52;--asphalt:#1e2124;--hazard:#ffcc00;--signal:#d7261e;--line:#c7c1b4;--radius:3px;--cta:var(--hazard);--cta-ink:var(--ink);font-family:var(--font-body);background:var(--bg);color:var(--ink)}
+.t1 .hero{background:var(--asphalt);color:#fff;padding:26px 20px 30px;position:relative}
+.t1 h3{font:800 32px/1.25 var(--font-display);margin-bottom:10px}
+.t1 .hero p{color:#c9c6bd;margin-bottom:22px}
+.t1 .tag{display:inline-block;background:var(--hazard);color:var(--ink);padding:6px 16px 6px 22px;transform:rotate(-3deg);font:800 30px var(--font-display);margin-bottom:22px;clip-path:polygon(0 0,100% 0,100% 100%,0 100%,0 50%)}
+.t1 .tag s{font-size:16px;font-weight:500;opacity:.6;margin-inline-start:8px}
+.t1 .stripe{height:16px;background:repeating-linear-gradient(45deg,var(--hazard) 0 14px,var(--ink) 14px 28px)}
+.t1 .body{padding:22px 20px}
+.t1 .plate{border:2px solid var(--ink);padding:16px;position:relative;background:var(--surface)}
+.t1 .plate::before,.t1 .plate::after,.t1 .plate b::before,.t1 .plate b::after{content:"";position:absolute;width:7px;height:7px;border-radius:50%;background:var(--ink)}
+.t1 .plate::before{top:6px;right:6px}.t1 .plate::after{top:6px;left:6px}
+.t1 .plate b::before{bottom:6px;right:6px}.t1 .plate b::after{bottom:6px;left:6px}
+.t1 .plate h4{font:800 15px var(--font-display);letter-spacing:.5px;border-bottom:2px solid var(--ink);padding-bottom:6px;margin-bottom:8px}
+.t1 .plate dl{display:grid;grid-template-columns:auto 1fr;gap:4px 14px;font-size:15px}
+.t1 .plate dt{color:var(--muted)}
+.t1 .plate dd{font-weight:600}
+
+/* 2 Souq Poster */
+.t2{--font-display:"Lalezar",sans-serif;--font-body:"Vazirmatn",sans-serif;--bg:#f3ead7;--surface:#fffaf0;--ink:#141414;--red:#d12a22;--cobalt:#2340c9;--radius:0;--cta:var(--red);--cta-ink:#fff;font-family:var(--font-body);background:var(--bg);color:var(--ink);padding:26px 20px 28px;position:relative;overflow:hidden}
+.t2 h3{font:400 50px/1.15 var(--font-display);margin-bottom:6px}
+.t2 h3 span{color:var(--cobalt)}
+.t2 p{font-size:17px;margin-bottom:18px;max-width:28ch}
+.t2 .poster{border:3px solid var(--ink);box-shadow:6px 6px 0 var(--ink);background:var(--surface);padding:16px;display:flex;justify-content:space-between;align-items:flex-end;margin-bottom:22px}
+.t2 .poster .big{font:400 66px/1 var(--font-display);color:var(--red)}
+.t2 .poster small{display:block;font-weight:700}
+.t2 .stamp{position:absolute;top:18px;left:14px;width:104px;height:104px;border-radius:50%;border:3px dashed var(--red);color:var(--red);display:grid;place-items:center;text-align:center;font:400 17px/1.15 var(--font-display);transform:rotate(-14deg);background:rgba(243,234,215,.85)}
+.t2 .cta{border:3px solid var(--ink);box-shadow:5px 5px 0 var(--ink);font-family:var(--font-display);font-weight:400;font-size:22px}
+
+/* 3 Kitchen Tile */
+.t3{--font-display:"El Messiri",serif;--font-body:"IBM Plex Sans Arabic",sans-serif;--bg:#fff;--surface:#f2f5fa;--ink:#1d2433;--muted:#5a6375;--tile:#1c4e9a;--lemon:#f2c94c;--grout:#e3e9f2;--radius:10px;--cta:var(--tile);--cta-ink:#fff;font-family:var(--font-body);background:var(--bg);color:var(--ink)}
+.t3 .hero{padding:24px 20px 26px;background:linear-gradient(rgba(255,255,255,.88),rgba(255,255,255,.88)),conic-gradient(from 45deg,var(--tile) 25%,#fff 0 50%,var(--tile) 0 75%,#fff 0) 0 0/36px 36px}
+.t3 .card{background:#fff;border:1px solid var(--grout);border-radius:var(--radius);padding:20px}
+.t3 h3{font:700 32px/1.3 var(--font-display);color:var(--tile);margin-bottom:6px}
+.t3 .card p{color:var(--muted);margin-bottom:14px}
+.t3 .pr{display:flex;align-items:baseline;gap:10px;margin-bottom:16px}
+.t3 .pr b{font:700 32px var(--font-display)}
+.t3 .pr s{color:var(--muted)}
+.t3 .band{height:28px;background:conic-gradient(from 45deg,var(--tile) 25%,#fff 0 50%,var(--tile) 0 75%,#fff 0) 0 0/28px 28px}
+.t3 .recipe{padding:22px 20px;display:grid;gap:10px}
+.t3 .recipe div{border:2px dotted var(--tile);border-radius:var(--radius);padding:12px 14px;display:flex;gap:12px;align-items:center}
+.t3 .recipe em{font:700 22px var(--font-display);font-style:normal;color:var(--tile);background:var(--lemon);border-radius:8px;width:38px;height:38px;display:grid;place-items:center;flex:none}
+
+/* 4 Pharmacy */
+.t4{--font-display:"Alexandria",sans-serif;--font-body:"Readex Pro",sans-serif;--bg:#fff;--surface:#f7f8f9;--ink:#0d1b2a;--muted:#56606b;--band:#0057b8;--band-2:#e9f1fb;--line:#d9dde2;--radius:4px;--cta:var(--band);--cta-ink:#fff;font-family:var(--font-body);background:var(--bg);color:var(--ink)}
+.t4 .flap{height:14px;background:var(--band)}
+.t4 .hero{padding:22px 20px;display:grid;grid-template-columns:1fr 110px;gap:16px;align-items:center;border-bottom:1px solid var(--line)}
+.t4 h3{font:700 27px/1.35 var(--font-display);margin-bottom:6px}
+.t4 .hero p{color:var(--muted);font-weight:300}
+.t4 .measure{position:relative;height:150px;border-inline-start:1px solid var(--ink);margin-inline-start:14px}
+.t4 .measure::before{content:"";position:absolute;inset:0 30% 0 20%;background:var(--band-2);border:1px solid var(--band);border-radius:20px 20px 8px 8px}
+.t4 .measure span{position:absolute;right:-30px;top:50%;transform:translateY(-50%) rotate(-90deg);font-size:11px;color:var(--muted);white-space:nowrap}
+.t4 .leaf{padding:18px 20px}
+.t4 .leaf h4{font:500 13px var(--font-display);color:var(--band);border-bottom:2px solid var(--band);padding-bottom:4px;margin-bottom:6px;letter-spacing:.3px}
+.t4 table{width:100%;border-collapse:collapse;font-size:15px;margin-bottom:16px}
+.t4 td{padding:7px 0;border-bottom:1px solid var(--line)}
+.t4 td:last-child{text-align:left;font-weight:600}
+.t4 .pr{font:700 28px var(--font-display);margin-bottom:12px}
+.t4 .pr small{font-size:15px;color:var(--muted);font-weight:500}
+
+/* 5 Night & Brass */
+.t5{--font-display:"Aref Ruqaa",serif;--font-body:"Noto Naskh Arabic",serif;--bg:#0f1d1a;--surface:#16261f;--ink:#f1ebdd;--muted:#b9b29f;--brass:#b98e4f;--brass-2:#d8b679;--line:rgba(185,142,79,.35);--radius:0;--cta:var(--brass-2);--cta-ink:var(--bg);font-family:var(--font-body);background:var(--bg);color:var(--ink);text-align:center;padding:30px 20px}
+.t5 .arch{width:170px;height:220px;margin:0 auto 18px;border-radius:999px 999px 0 0;border:1px solid var(--brass);padding:8px}
+.t5 .arch div{width:100%;height:100%;border-radius:999px 999px 0 0;background:radial-gradient(60% 50% at 50% 40%,#2c4038,var(--surface));display:grid;place-items:center}
+.t5 h3{font:700 38px/1.4 var(--font-display);color:var(--brass-2);margin-bottom:6px}
+.t5 p{color:var(--muted);margin-bottom:12px}
+.t5 .rule{display:flex;align-items:center;gap:10px;margin:14px auto;max-width:240px}
+.t5 .rule::before,.t5 .rule::after{content:"";flex:1;height:1px;background:var(--brass)}
+.t5 .rule i{width:8px;height:8px;transform:rotate(45deg);background:var(--brass)}
+.t5 .pr{font:600 26px var(--font-body);margin-bottom:18px}
+.t5 .pr s{color:var(--muted);font-size:17px;margin-inline-start:8px}
+
+/* 6 Playground */
+.t6{--font-display:"Marhey",sans-serif;--font-body:"Baloo Bhaijaan 2",sans-serif;--bg:#fff;--surface:#fff6e5;--ink:#24324a;--muted:#5b6780;--tomato:#ff5a4e;--sky:#3fa9f5;--sun:#ffc83d;--grass:#3cc47c;--radius:22px;--cta:var(--sun);--cta-ink:var(--ink);font-family:var(--font-body);background:var(--bg);color:var(--ink)}
+.t6 .hero{background:var(--surface);padding:26px 20px 10px;position:relative}
+.t6 .blob{width:200px;height:170px;margin:0 auto 14px;background:var(--sky);border-radius:62% 38% 55% 45%/52% 60% 40% 48%;display:grid;place-items:center;position:relative}
+.t6 .sticker{position:absolute;background:var(--tomato);color:#fff;font:700 15px var(--font-display);padding:6px 12px;border-radius:14px;border:3px solid #fff;box-shadow:0 4px 10px rgba(0,0,0,.15)}
+.t6 .s1{top:-6px;left:-14px;transform:rotate(-10deg)}
+.t6 .s2{bottom:4px;right:-18px;transform:rotate(8deg);background:var(--grass)}
+.t6 h3{font:700 32px/1.35 var(--font-display);text-align:center;margin-bottom:4px}
+.t6 .hero p{text-align:center;color:var(--muted);margin-bottom:6px}
+.t6 svg.wave{display:block;width:100%;height:28px}
+.t6 .body{padding:8px 20px 24px}
+.t6 .pr{text-align:center;font:700 30px var(--font-display);margin-bottom:14px}
+.t6 .pr s{font-size:17px;color:var(--muted)}
+.t6 .cta{font-family:var(--font-display);box-shadow:0 5px 0 #d9a320}
+
+/* 7 Blueprint */
+.t7{--font-display:"Noto Kufi Arabic",sans-serif;--font-body:"IBM Plex Sans Arabic",sans-serif;--bg:#f4f6f8;--surface:#fff;--ink:#1f2328;--muted:#5b636e;--volt:#ff5a1f;--grid:#dbe1e8;--line:#c4ccd6;--radius:2px;--cta:var(--volt);--cta-ink:var(--ink);font-family:var(--font-body);color:var(--ink);background-color:var(--bg);background-image:linear-gradient(var(--grid) 1px,transparent 1px),linear-gradient(90deg,var(--grid) 1px,transparent 1px);background-size:24px 24px;padding:24px 20px}
+.t7 h3{font:800 26px/1.45 var(--font-display);margin-bottom:6px}
+.t7 > p{color:var(--muted);margin-bottom:10px}
+.t7 .spec{display:block;width:100%;height:auto;margin:6px 0 12px}
+.t7 table{width:100%;border-collapse:collapse;background:var(--surface);border:1px solid var(--line);font-size:14px;margin-bottom:16px}
+.t7 td{padding:8px 10px;border-bottom:1px solid var(--line)}
+.t7 td:first-child{color:var(--muted);width:42%}
+.t7 .pr{font:800 28px var(--font-display);margin-bottom:12px}
+.t7 .pr small{font:500 15px var(--font-body);color:var(--muted)}
+</style>
+</head>
+<body>
+
+<div class="intro">
+  <h1>7 ثيمات للاند بيدج</h1>
+  <p>كل ثيم معمول من عالم مجموعة منتجات: خطوط عربية بشخصية، وألوان، وعنصر مميز بيخلي الصفحة تتعرف من نظرة. ده الهيرو بس، والصفحة كاملة بتكمل بنفس الروح. السكيل بتختار الثيم حسب المنتج، وكل التفاصيل في <bdi>references/design.md</bdi>.</p>
+</div>
+
+<!-- 1 -->
+<section class="theme">
+  <div class="meta"><div><h2>١ · أسفلت</h2><small>سيارات، عِدد، داش كام · Changa + Readex Pro</small></div>
+    <div class="sw"><i style="background:#1e2124"></i><i style="background:#ffcc00"></i><i style="background:#d7261e"></i><i style="background:#e8e5de"></i></div></div>
+  <div class="frame t1">
+    <div class="hero">
+      <h3>ضربك وگال إنت الغلطان؟ هالمرة الكاميرا تحچي.</h3>
+      <p>4 كاميرات: گدّام، ورا، جنب وداخل السيارة.</p>
+      <div class="tag">67,000 د.ع<s>80,000</s></div>
+      <button class="cta">اطلبها هسة — الدفع عند الاستلام</button>
+    </div>
+    <div class="stripe"></div>
+    <div class="body">
+      <div class="plate"><b></b>
+        <h4>لوحة البيانات</h4>
+        <dl><dt>الكاميرات</dt><dd>4 — گدّام، ورا، جنب، داخل</dd><dt>الليل</dt><dd>رؤية ليلية</dd><dt>الضمان</dt><dd>سنتين</dd><dt>التوصيل</dt><dd>1–3 أيام · 7,000 د.ع</dd></dl>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 2 -->
+<section class="theme">
+  <div class="meta"><div><h2>٢ · ملصق السوق</h2><small>تريند، واو، عروض · Lalezar + Vazirmatn</small></div>
+    <div class="sw"><i style="background:#f3ead7"></i><i style="background:#141414"></i><i style="background:#d12a22"></i><i style="background:#2340c9"></i></div></div>
+  <div class="frame t2">
+    <div class="stamp">الدفع<br>عند<br>الاستلام</div>
+    <h3>الباب<br><span>يتسكّر</span><br>وحده!</h3>
+    <p>غالق الأبواب السحري، تركيبه بدقايق وبدون حفر.</p>
+    <div class="poster"><div><small>السعر</small><span class="big">11,500</span></div><b>دينار</b></div>
+    <button class="cta">اطلبه هسة</button>
+  </div>
+</section>
+
+<!-- 3 -->
+<section class="theme">
+  <div class="meta"><div><h2>٣ · زليج المطبخ</h2><small>مطبخ، مكانس، تنظيف · El Messiri + IBM Plex Sans Arabic</small></div>
+    <div class="sw"><i style="background:#1c4e9a"></i><i style="background:#f2c94c"></i><i style="background:#ffffff"></i><i style="background:#1d2433"></i></div></div>
+  <div class="frame t3">
+    <div class="hero"><div class="card">
+      <h3>عجينة العزيمة كلها… بمرة وحدة</h3>
+      <p>محضرة طعام 8 لتر، تعجن وتخفق وتفرم.</p>
+      <div class="pr"><b>399 ر.س</b><s>499 ر.س</s></div>
+      <button class="cta">اطلبها الحين — الدفع عند الاستلام</button>
+    </div></div>
+    <div class="band"></div>
+    <div class="recipe">
+      <div><em>١</em>حط المكونات بالوعاء</div>
+      <div><em>٢</em>اختار السرعة</div>
+      <div><em>٣</em>العجينة جاهزة</div>
+    </div>
+  </div>
+</section>
+
+<!-- 4 -->
+<section class="theme">
+  <div class="meta"><div><h2>٤ · صيدلية</h2><small>عناية شخصية، تجميل · Alexandria + Readex Pro</small></div>
+    <div class="sw"><i style="background:#0057b8"></i><i style="background:#e9f1fb"></i><i style="background:#ffffff"></i><i style="background:#0d1b2a"></i></div></div>
+  <div class="frame t4">
+    <div class="flap"></div>
+    <div class="hero">
+      <div><h3>حلاقة كاملة قبل الدوام</h3><p>ماكينة 3 في 1 للوجه والرقبة والشعر.</p></div>
+      <div class="measure"><span>18 سم</span></div>
+    </div>
+    <div class="leaf">
+      <h4>المواصفات</h4>
+      <table><tr><td>الرؤوس</td><td>3 قابلة للتبديل</td></tr><tr><td>الشحن</td><td>USB</td></tr><tr><td>الاستبدال</td><td>خلال 14 يوم</td></tr></table>
+      <div class="pr">149 ر.س <small>+ التوصيل</small></div>
+      <button class="cta">اطلبها الحين — الدفع عند الاستلام</button>
+    </div>
+  </div>
+</section>
+
+<!-- 5 -->
+<section class="theme">
+  <div class="meta"><div><h2>٥ · ليل ونحاس</h2><small>عطور، ساعات، هدايا · Aref Ruqaa + Noto Naskh Arabic</small></div>
+    <div class="sw"><i style="background:#0f1d1a"></i><i style="background:#b98e4f"></i><i style="background:#d8b679"></i><i style="background:#f1ebdd"></i></div></div>
+  <div class="frame t5">
+    <div class="arch"><div>
+      <svg width="64" height="110" viewBox="0 0 64 110" aria-hidden="true"><rect x="24" y="4" width="16" height="16" fill="#b98e4f"/><rect x="20" y="20" width="24" height="8" fill="#d8b679"/><rect x="6" y="28" width="52" height="78" rx="6" fill="none" stroke="#d8b679" stroke-width="2"/><rect x="14" y="56" width="36" height="22" fill="none" stroke="#b98e4f"/></svg>
+    </div></div>
+    <h3>هدية تنذكر</h3>
+    <p>طقم عطر بعلبة جاهزة للإهداء.</p>
+    <div class="rule"><i></i></div>
+    <div class="pr">249 ر.س<s>320 ر.س</s></div>
+    <button class="cta">اطلبه الحين — الدفع عند الاستلام</button>
+  </div>
+</section>
+
+<!-- 6 -->
+<section class="theme">
+  <div class="meta"><div><h2>٦ · ملعب</h2><small>أطفال، ألعاب، مدرسة · Marhey + Baloo Bhaijaan 2</small></div>
+    <div class="sw"><i style="background:#ff5a4e"></i><i style="background:#3fa9f5"></i><i style="background:#ffc83d"></i><i style="background:#3cc47c"></i></div></div>
+  <div class="frame t6">
+    <div class="hero">
+      <div class="blob">
+        <svg width="90" height="100" viewBox="0 0 90 100" aria-hidden="true"><rect x="10" y="22" width="70" height="72" rx="16" fill="#fff"/><path d="M30 22v-8a15 15 0 0130 0v8" fill="none" stroke="#fff" stroke-width="6"/><rect x="22" y="48" width="46" height="26" rx="8" fill="#ffc83d"/></svg>
+        <span class="sticker s1">تضوي!</span><span class="sticker s2">خفيفة</span>
+      </div>
+      <h3>شنطة تفرّح أول يوم دراسة</h3>
+      <p>شنطة مدرسية بإضاءة وألوان يحبها طفلك.</p>
+    </div>
+    <svg class="wave" viewBox="0 0 400 28" preserveAspectRatio="none" aria-hidden="true"><path d="M0 0h400v10c-50 18-100 18-150 6S150-2 100 10 30 26 0 14z" fill="#fff6e5"/></svg>
+    <div class="body">
+      <div class="pr">129 ر.س <s>179</s></div>
+      <button class="cta">اطلبها الحين — الدفع عند الاستلام</button>
+    </div>
+  </div>
+</section>
+
+<!-- 7 -->
+<section class="theme">
+  <div class="meta"><div><h2>٧ · مخطط</h2><small>إلكترونيات، شواحن، طاقة · Noto Kufi Arabic + IBM Plex Sans Arabic</small></div>
+    <div class="sw"><i style="background:#f4f6f8"></i><i style="background:#1f2328"></i><i style="background:#ff5a1f"></i><i style="background:#dbe1e8"></i></div></div>
+  <div class="frame t7">
+    <h3>بطارية السيارة نايمة؟ شغّلها بنفسك</h3>
+    <p>شاحن بطارية سيارة + باور بانك + منفاخ إطارات بجهاز واحد.</p>
+    <svg class="spec" viewBox="0 0 360 170" direction="ltr" aria-hidden="true" font-family="IBM Plex Sans Arabic" font-size="13" fill="#1f2328">
+      <rect x="130" y="30" width="100" height="120" rx="10" fill="#fff" stroke="#1f2328" stroke-width="2"/>
+      <rect x="148" y="48" width="64" height="30" rx="4" fill="#1f2328"/>
+      <circle cx="180" cy="112" r="14" fill="none" stroke="#ff5a1f" stroke-width="3"/>
+      <rect x="168" y="146" width="24" height="8" fill="#ff5a1f"/>
+      <path d="M212 63 L270 40 H350" fill="none" stroke="#ff5a1f" stroke-width="1.5"/><circle cx="212" cy="63" r="3" fill="#ff5a1f"/>
+      <text x="350" y="34" text-anchor="end">شاشة ضغط الهوا</text>
+      <path d="M166 112 L95 95 H10" fill="none" stroke="#ff5a1f" stroke-width="1.5"/><circle cx="166" cy="112" r="3" fill="#ff5a1f"/>
+      <text x="96" y="89" text-anchor="end">زر التشغيل</text>
+      <path d="M192 150 L260 160 H350" fill="none" stroke="#ff5a1f" stroke-width="1.5"/><circle cx="192" cy="150" r="3" fill="#ff5a1f"/>
+      <text x="350" y="154" text-anchor="end">منفذ الكلبسات</text>
+    </svg>
+    <table><tr><td>الاستخدامات</td><td>تشغيل سيارة · شحن موبايل · نفخ إطارات</td></tr><tr><td>الضمان</td><td>[حسب المنتج]</td></tr></table>
+    <div class="pr">53,500 د.ع <small>+ توصيل 7,000</small></div>
+    <button class="cta">اطلبه هسة — الدفع عند الاستلام</button>
+  </div>
+</section>
+
+<div class="intro" style="padding-bottom:48px"><p>الأسعار والمنتجات هنا أمثلة للعرض بس.</p></div>
+</body>
+</html>
