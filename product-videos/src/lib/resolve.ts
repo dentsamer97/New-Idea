@@ -1,5 +1,5 @@
 import { products } from "../products";
-import type { AdContent, AdProps, Product } from "../schema";
+import { formats, type AdContent, type AdProps, type Product } from "../schema";
 
 export const findProduct = (productId: string): Product => {
   const product = products.find((p) => p.id === productId || p.code === productId);
@@ -30,6 +30,8 @@ export const resolveAd = ({ productId, angleId, hookId }: AdProps): AdContent =>
     cta: product.cta,
     images: product.images,
     theme: product.theme,
+    angle,
+    clips: product.clips ?? [],
     hook,
     problems: angle.problems,
     features: [...ordered, ...rest],
@@ -45,7 +47,9 @@ export const adName = (ad: AdProps) => {
 };
 
 export const parseAdName = (name: string): AdProps => {
-  const match = /^P-(.+)_A-(.+)_F-(showcase|short|static)_H-(.+)$/.exec(name.replace(/\.(mp4|png)$/, ""));
+  const match = new RegExp(`^P-(.+)_A-(.+)_F-(${formats.join("|")})_H-(.+)$`).exec(
+    name.replace(/\.(mp4|png)$/, ""),
+  );
   if (!match) throw new Error(`اسم الإعلان "${name}" مش بالشكل P-منتج_A-زاوية_F-فورمات_H-هوك`);
   const [, code, angleId, format, hookId] = match;
   return { productId: findProduct(code).id, angleId, format: format as AdProps["format"], hookId };

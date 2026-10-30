@@ -21,6 +21,10 @@ export const formatLabel: Record<AdProps["format"], string> = {
   showcase: "عرض المنتج",
   short: "مختصر",
   static: "صورة ثابتة",
+  ugc: "UGC",
+  compare: "قبل وبعد / مقارنة",
+  reasons: "3 أسباب",
+  pov: "POV",
 };
 
 // الإعلانات الأساسية: هوكات أول زاوية بفورمات العرض الكامل
@@ -56,7 +60,12 @@ export const anglesPlan = (productId: string, format: AdProps["format"], pattern
 //  - Winner Angle: نفس الزاوية + هوك تاني (نفس الفورمات)، ونفس الزاوية + فورمات تاني (نفس الهوك)
 //  - Winner Hook: نفس "باترن" الهوك على زوايا تانية، وعلى فورمات تانية
 //  - Winner Format: نفس الفورمات بزوايا تانية وهوكات تانية
-export const winnerPlan = (winner: AdProps, only?: "angle" | "hook" | "format"): Plan => {
+// tryFormats: الفورمات اللي تتجرّب كـ «فورمات تاني» (الافتراضي: كلهم)
+export const winnerPlan = (
+  winner: AdProps,
+  only?: "angle" | "hook" | "format",
+  tryFormats: readonly AdProps["format"][] = formats,
+): Plan => {
   const product = findProduct(winner.productId);
   const winnerHook = product.hooks.find((h) => h.id === winner.hookId);
   if (!winnerHook) throw new Error(`الهوك "${winner.hookId}" مش موجود في ${product.id}`);
@@ -77,7 +86,7 @@ export const winnerPlan = (winner: AdProps, only?: "angle" | "hook" | "format"):
   if (newHooks.length === 0) missing.push(`هوكات تانية للزاوية "${winner.angleId}"`);
 
   // نفس الزاوية والهوك، فورمات تاني (بيختبر الفورمات)
-  const newFormats: PlannedAd[] = formats
+  const newFormats: PlannedAd[] = tryFormats
     .filter((f) => f !== winner.format)
     .map((f) => ({
       ...base,

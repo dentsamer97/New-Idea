@@ -4,6 +4,7 @@ import { PhotoCard } from "../components/PhotoCard";
 import { Pill } from "../components/Pill";
 import { Scene } from "../components/Scene";
 import { enter, pop } from "../lib/anim";
+import { mediaFor } from "../lib/media";
 import type { AdContent } from "../schema";
 
 export const Reveal: React.FC<{ content: AdContent }> = ({ content }) => {
@@ -66,7 +67,7 @@ export const Reveal: React.FC<{ content: AdContent }> = ({ content }) => {
           }}
         />
         <div style={{ scale: String(pop(frame, fps, 10)) }}>
-          <PhotoCard src={content.images.product} width={600} height={880} />
+          <PhotoCard media={mediaFor(content, { kind: "reveal" })!} width={600} height={880} />
         </div>
       </div>
     </Scene>

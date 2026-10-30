@@ -1,27 +1,22 @@
 import React from "react";
-import { AbsoluteFill, Img, interpolate, staticFile, useCurrentFrame, useVideoConfig } from "remotion";
+import { AbsoluteFill, interpolate, useCurrentFrame, useVideoConfig } from "remotion";
 import { Icon } from "../components/Icon";
+import { Media } from "../components/Media";
 import { Scene } from "../components/Scene";
 import { enter, pop } from "../lib/anim";
+import { mediaFor } from "../lib/media";
 import type { AdContent } from "../schema";
 
 export const Uses: React.FC<{ content: AdContent }> = ({ content }) => {
   const frame = useCurrentFrame();
-  const { fps, durationInFrames } = useVideoConfig();
+  const { fps } = useVideoConfig();
   const { theme } = content;
 
   const background = (
     <AbsoluteFill style={{ backgroundColor: theme.dark }}>
-      <Img
-        src={staticFile(content.images.lifestyle)}
-        style={{
-          width: "100%",
-          height: "100%",
-          objectFit: "cover",
-          filter: "blur(14px)",
-          scale: interpolate(frame, [0, durationInFrames], [1.15, 1.3]),
-        }}
-      />
+      <AbsoluteFill style={{ filter: "blur(14px)", scale: "1.15" }}>
+        <Media media={mediaFor(content, { kind: "lifestyle" })!} zoom={[1, 1.15]} />
+      </AbsoluteFill>
       <AbsoluteFill style={{ background: `${theme.dark}C8` }} />
     </AbsoluteFill>
   );

@@ -1,9 +1,11 @@
 // طريقة الـ Winner Creative: من إعلان كسبان نطلّع نسخ، كل نسخة بتغيّر عنصر واحد بس
 //   npm run winner -- P-sink_A-kashta_F-showcase_H-kq
 //   npm run winner -- P-sink_A-kashta_F-showcase_H-kq --only hook   (فرع واحد: angle | hook | format)
+//   npm run winner -- P-sink_A-kashta_F-showcase_H-kq --formats ugc,static   (الفورمات اللي تتجرّب)
 //   npm run winner -- P-sink_A-kashta_F-showcase_H-kq --dry         (يعرض الخطة من غير ما يطلّع فيديوهات)
 import { formatLabel, patternLabel, winnerPlan } from "../src/lib/plan";
 import { adName, findProduct, parseAdName } from "../src/lib/resolve";
+import { formats } from "../src/schema";
 import { parseArgs, str } from "./lib/args.mjs";
 import { logAds } from "./lib/log.mjs";
 import { createRenderer } from "./lib/render.mjs";
@@ -23,7 +25,13 @@ if (only && !["angle", "hook", "format"].includes(only)) {
 const winner = parseAdName(winnerName);
 const product = findProduct(winner.productId);
 const hook = product.hooks.find((h) => h.id === winner.hookId)!;
-const { ads, missing } = winnerPlan(winner, only);
+const tryFormats = str(args.formats)?.split(",") as (typeof formats)[number][] | undefined;
+const unknown = tryFormats?.filter((f) => !formats.includes(f));
+if (unknown?.length) {
+  console.log(`فورمات مش معروف: ${unknown.join(", ")}. المتاح: ${formats.join(" | ")}`);
+  process.exit(1);
+}
+const { ads, missing } = winnerPlan(winner, only, tryFormats);
 
 console.log(`\nالإعلان الكسبان: ${adName(winner)}`);
 console.log(`  الزاوية: ${product.angles.find((a) => a.id === winner.angleId)?.label}`);

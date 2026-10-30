@@ -4,14 +4,16 @@ import { Icon } from "../components/Icon";
 import { PhotoCard } from "../components/PhotoCard";
 import { Scene } from "../components/Scene";
 import { enter, pop } from "../lib/anim";
+import { mediaFor, type MediaRef } from "../lib/media";
 import type { AdContent, Feature } from "../schema";
 
-const FeatureCard: React.FC<{
+export const FeatureCard: React.FC<{
   feature: Feature;
+  media: MediaRef;
   index: number;
   count: number;
   theme: AdContent["theme"];
-}> = ({ feature, index, count, theme }) => {
+}> = ({ feature, media, index, count, theme }) => {
   const frame = useCurrentFrame();
   const { fps } = useVideoConfig();
 
@@ -37,7 +39,7 @@ const FeatureCard: React.FC<{
             translate: `${interpolate(enter(frame, 0, 16), [0, 1], [-200, 0])}px 0px`,
           }}
         >
-          <PhotoCard src={feature.image} width={760} height={720} />
+          <PhotoCard media={media} width={760} height={720} />
         </div>
         <div
           style={{
@@ -96,6 +98,7 @@ export const Features: React.FC<{ content: AdContent; featureFrames: number }> =
       <Series.Sequence key={i} name={feature.title} durationInFrames={featureFrames}>
         <FeatureCard
           feature={feature}
+          media={mediaFor(content, { kind: "feature", featureId: feature.id, image: feature.image })!}
           index={i}
           count={content.features.length}
           theme={content.theme}

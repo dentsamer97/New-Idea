@@ -5,6 +5,7 @@ import { Pill } from "../components/Pill";
 import { Scene } from "../components/Scene";
 import { enter, pop } from "../lib/anim";
 import { isHighlighted } from "../lib/highlight";
+import { mediaFor } from "../lib/media";
 import type { AdContent } from "../schema";
 
 export const Hook: React.FC<{ content: AdContent }> = ({ content }) => {
@@ -65,7 +66,7 @@ export const Hook: React.FC<{ content: AdContent }> = ({ content }) => {
           translate: `0px ${interpolate(enter(frame, 18, 20), [0, 1], [300, 0])}px`,
         }}
       >
-        <PhotoCard src={content.images.product} width={600} height={880} />
+        <PhotoCard media={mediaFor(content, { kind: "hook" })!} width={600} height={880} />
       </div>
     </Scene>
   );

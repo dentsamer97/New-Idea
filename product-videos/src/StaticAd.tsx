@@ -5,6 +5,7 @@ import { Pill } from "./components/Pill";
 import { Scene } from "./components/Scene";
 import { formatNumber, getCurrencyLabel } from "./lib/format";
 import { isHighlighted } from "./lib/highlight";
+import { productImage } from "./lib/media";
 import { resolveAd } from "./lib/resolve";
 import type { AdProps } from "./schema";
 
@@ -37,7 +38,7 @@ export const StaticAd: React.FC<AdProps> = (props) => {
         </div>
 
         <div style={{ marginTop: 40, display: "flex", alignItems: "center", gap: 32 }}>
-          <PhotoCard src={content.images.product} width={440} height={640} />
+          <PhotoCard media={productImage(content)} width={440} height={640} />
           <div style={{ display: "flex", flexDirection: "column", gap: 30 }}>
             {content.features.slice(0, 3).map((feature) => (
               <div key={feature.id} style={{ display: "flex", alignItems: "center", gap: 18 }}>

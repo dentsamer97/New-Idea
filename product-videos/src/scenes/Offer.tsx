@@ -6,6 +6,7 @@ import { Pill } from "../components/Pill";
 import { Scene } from "../components/Scene";
 import { enter, pop } from "../lib/anim";
 import { formatNumber, getCurrencyLabel } from "../lib/format";
+import { productImage } from "../lib/media";
 import type { AdContent } from "../schema";
 
 export const Offer: React.FC<{ content: AdContent }> = ({ content }) => {
@@ -27,7 +28,7 @@ export const Offer: React.FC<{ content: AdContent }> = ({ content }) => {
     <Scene theme={theme}>
       <div style={{ display: "flex", flexDirection: "column", alignItems: "center" }}>
         <div style={{ scale: String(pop(frame, fps, 0)) }}>
-          <PhotoCard src={content.images.product} width={420} height={600} />
+          <PhotoCard media={productImage(content)} width={420} height={600} />
         </div>
 
         {content.oldPrice ? (
