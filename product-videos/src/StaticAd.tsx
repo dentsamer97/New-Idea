@@ -15,7 +15,7 @@ export const StaticAd: React.FC<AdProps> = (props) => {
 
   return (
     <Scene theme={theme}>
-      <div style={{ height: "100%", display: "flex", flexDirection: "column", alignItems: "center" }}>
+      <div style={{ height: "100%", display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "center" }}>
         <Pill background={theme.accent} color={theme.dark} fontSize={54}>
           {hook.top}
         </Pill>
@@ -36,8 +36,8 @@ export const StaticAd: React.FC<AdProps> = (props) => {
           ))}
         </div>
 
-        <div style={{ marginTop: 40, display: "flex", alignItems: "center", gap: 40 }}>
-          <PhotoCard src={content.images.product} width={400} height={580} />
+        <div style={{ marginTop: 40, display: "flex", alignItems: "center", gap: 32 }}>
+          <PhotoCard src={content.images.product} width={440} height={640} />
           <div style={{ display: "flex", flexDirection: "column", gap: 30 }}>
             {content.features.slice(0, 3).map((feature) => (
               <div key={feature.id} style={{ display: "flex", alignItems: "center", gap: 18 }}>
@@ -55,7 +55,7 @@ export const StaticAd: React.FC<AdProps> = (props) => {
                 >
                   <Icon name="check" size={40} color="white" strokeWidth={3.2} />
                 </div>
-                <div style={{ fontSize: 46, fontWeight: 800, lineHeight: 1.25, maxWidth: 420 }}>
+                <div style={{ fontSize: 46, fontWeight: 800, lineHeight: 1.25, whiteSpace: "nowrap" }}>
                   {feature.title}
                 </div>
               </div>
@@ -80,17 +80,31 @@ export const StaticAd: React.FC<AdProps> = (props) => {
             alignItems: "center",
             justifyContent: "center",
             gap: 24,
-            width: 860,
+            width: 820,
             height: 170,
             borderRadius: 999,
             background: "#22C55E",
             boxShadow: "0 24px 60px rgba(34,197,94,0.45)",
-            fontSize: 72,
+            fontSize: 84,
             fontWeight: 900,
           }}
         >
-          <Icon name="cash" size={84} color="white" />
-          {content.cta.button} والدفع عند الاستلام
+          <Icon name="cart" size={88} color="white" strokeWidth={2.2} />
+          {content.cta.button}
+        </div>
+        <div
+          style={{
+            marginTop: 28,
+            display: "flex",
+            alignItems: "center",
+            gap: 18,
+            fontSize: 60,
+            fontWeight: 800,
+            color: "#4ADE80",
+          }}
+        >
+          <Icon name="cash" size={68} color="#4ADE80" />
+          الدفع عند الاستلام
         </div>
       </div>
     </Scene>
