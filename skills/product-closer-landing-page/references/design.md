@@ -6,7 +6,7 @@
 1. ليه صفحات الـAI شبه بعض
 2. قائمة الممنوعات (الحاجات اللي بتفضح الـAI)
 3. اللي مايتغيرش مهما كان الثيم (قواعد التحويل)
-4. الثيمات السبعة (لكل واحد الـTokens بتاعته)
+4. الثيمات الـ14 (لكل واحد الـTokens بتاعته)
 5. اختيار الثيم حسب المنتج
 6. شكل الهيرو وإيقاع السكاشن
 7. طريقة الشغل والمراجعة قبل التسليم
@@ -54,10 +54,11 @@
 - **النص:** الـBody من 16 لـ18px، وسطر العنوان مايزيدش عن 3 سطور على الموبايل.
 - **الأداء:** خطين بالكتير من Google Fonts بالأوزان المطلوبة بس، ومن غير مكتبات JS، والصور `loading="lazy"` تحت الهيرو، وأول صورة في الهيرو لها `width` و`height`.
 - **RTL:** `dir="rtl"`، والأسماء الإنجليزية جوه `<bdi>`، والأرقام والأسعار بأرقام غربية (67,000).
+- **ممنوع `letter-spacing` على أي نص عربي.** بيقطّع وصل الحروف. مسموح بس على أرقام أو كلام إنجليزي.
 - **الوصول:** focus ظاهر، و`prefers-reduced-motion`، وأي حركة تكون واحدة بس ولها لازمة.
 - **فيديو أو صور حقيقية:** لو مش موجودين، ماتعملش مكان ليهم (شوف SKILL.md). الهيرو يبقى طباعي، أو رسمة SVG بسيطة من عالم المنتج.
 
-## 4. الثيمات السبعة
+## 4. الثيمات الـ14
 كل ثيم معمول من عالم مجموعة منتجات. انسخ رابط الخطوط و`:root` زي ما هما، وابني عليهم. **العنصر المميز** هو الحاجة الوحيدة اللي تخلي الصفحة تتعرف من نظرة، فاستخدمه مرتين أو تلاتة في الصفحة، مش في كل سكشن.
 
 ### ثيم 1: أسفلت (Asphalt)
@@ -192,6 +193,137 @@
 - **العنصر المميز:** خلفية شبكة هندسية (`background-image:linear-gradient(var(--grid) 1px,transparent 1px),linear-gradient(90deg,var(--grid) 1px,transparent 1px);background-size:24px 24px`)، وصورة المنتج عليها خطوط إشارة لأجزائه، زي «منفذ USB-C» أو «بطارية».
 - **الهيرو:** المنتج في النص وحواليه 2 أو 3 خطوط إشارة، والمواصفات في جدول زي ورقة المواصفات.
 
+### ثيم 8: سدو (Sadu)
+**ينفع لـ:** المنتجات التراثية، والبخور والمباخر، والدلال والقهوة، والمجالس، وهدايا المناسبات الخليجية.
+**الإحساس:** نسيج السدو البدوي: أحمر وأسود وصوف، وهندسة مثلثات.
+```html
+<link href="https://fonts.googleapis.com/css2?family=Reem+Kufi:wght@700&family=Beiruti:wght@400;600&display=swap" rel="stylesheet">
+```
+```css
+:root{
+  --font-display:"Reem Kufi",sans-serif; --font-body:"Beiruti",sans-serif;
+  --bg:#efe6d6; --surface:#f7f1e6; --ink:#1a1412; --muted:#5e5148;
+  --sadu-red:#8e1b1b; --ochre:#c98a2b; --line:#d8cbb4;
+  --radius:0; --border:2px solid var(--ink);
+  --cta:var(--sadu-red); --cta-ink:#ffffff;
+}
+```
+- **العنصر المميز:** شريط سدو من مثلثات متبادلة (`background:linear-gradient(135deg,var(--sadu-red) 25%,transparent 25%) -12px 0/24px 24px,linear-gradient(225deg,var(--sadu-red) 25%,transparent 25%) -12px 0/24px 24px,linear-gradient(315deg,var(--ink) 25%,transparent 25%) 0 0/24px 24px,linear-gradient(45deg,var(--ink) 25%,transparent 25%) 0 0/24px 24px,var(--bg)`) فوق الهيرو وكفاصل، وعناوين السكاشن جوه «رقعة» ببوردر مزدوج.
+- **الهيرو:** المنتج على خلفية صوفي فاتحة، وشريط السدو تحته، والعنوان بخط كوفي.
+- **الحواف:** حادة، ومن غير ظلال.
+
+### ثيم 9: نادي (Gym)
+**ينفع لـ:** أدوات الرياضة، ومسدسات المساج، والأحزمة، ومنتجات اللياقة والتخسيس (من غير وعود نتائج).
+**الإحساس:** طباشير وحديد وطاقة، وحواف مقطوعة بزاوية.
+```html
+<link href="https://fonts.googleapis.com/css2?family=Rubik:wght@800;900&family=Noto+Sans+Arabic:wght@400;600&display=swap" rel="stylesheet">
+```
+```css
+:root{
+  --font-display:"Rubik",sans-serif; --font-body:"Noto Sans Arabic",sans-serif;
+  --bg:#f1f1ef; --surface:#ffffff; --ink:#0e0e0f; --muted:#55575c;
+  --iron:#2b2d31; --red:#d01f17; --line:#d6d6d2;
+  --radius:2px; --border:2px solid var(--ink);
+  --cta:var(--red); --cta-ink:#ffffff;
+}
+```
+- **العنصر المميز:** سكاشن بحواف مقطوعة بزاوية (`clip-path:polygon(0 0,100% 4vw,100% 100%,0 100%)`)، وأرقام ضخمة مفرّغة (`-webkit-text-stroke:2px var(--ink);color:transparent`) للحقايق زي «3 سرعات» أو «6 رؤوس».
+- **الهيرو:** خلفية حديد غامقة، وعنوان أبيض ضخم، والمنتج مايل بزاوية.
+- **انتبه:** مفيش «خسّس 10 كيلو» ولا أي وعد بنتيجة جسمانية.
+
+### ثيم 10: مخيّم (Camp)
+**ينفع لـ:** الرحلات والكشتة، والمراتب الهوائية والمنافيخ، وأثاث التخييم، والكشافات والطاقة الشمسية المتنقلة.
+**الإحساس:** خريطة طبوغرافية، وقماش خيمة، ونار مخيم.
+```html
+<link href="https://fonts.googleapis.com/css2?family=Kufam:wght@700;800&family=Vazirmatn:wght@400;600&display=swap" rel="stylesheet">
+```
+```css
+:root{
+  --font-display:"Kufam",sans-serif; --font-body:"Vazirmatn",sans-serif;
+  --bg:#ece6d6; --surface:#f6f2e8; --ink:#1b2420; --muted:#5a5a48;
+  --forest:#2f4a35; --ember:#e2722b; --khaki:#c8b98f; --line:#d3cab3;
+  --radius:6px; --border:2px solid var(--forest);
+  --cta:var(--ember); --cta-ink:var(--ink);
+}
+```
+- **العنصر المميز:** خطوط كنتور زي الخريطة في خلفية الهيرو (`background:repeating-radial-gradient(circle at 70% 40%,transparent 0 18px,rgba(47,74,53,.18) 18px 19px)`)، وكروت بغرزة منقطة جوه البوردر زي قماش الخيمة (`outline:2px dashed var(--khaki);outline-offset:-8px`).
+- **الهيرو:** أخضر غابة، والسعر على «تيكت» برتقالي، والعنوان بخط Kufam.
+
+### ثيم 11: فانوس (Ramadan)
+**ينفع لـ:** سجاجيد الصلاة، وسماعات القرآن، وفوانيس وزينة رمضان، والمصاحف، وهدايا العيد.
+**الإحساس:** ليلة رمضان: نجمة ثمانية، وقوس محراب مدبب، ونور فانوس.
+```html
+<link href="https://fonts.googleapis.com/css2?family=Amiri:wght@700&family=IBM+Plex+Sans+Arabic:wght@400;500&display=swap" rel="stylesheet">
+```
+```css
+:root{
+  --font-display:"Amiri",serif; --font-body:"IBM Plex Sans Arabic",sans-serif;
+  --bg:#0d2b3a; --surface:#12384b; --ink:#f3ead2; --muted:#a9b8bd;
+  --gold:#e8b64c; --lantern:#c8452d; --line:rgba(232,182,76,.35);
+  --radius:0; --border:1px solid var(--line);
+  --cta:var(--gold); --cta-ink:var(--bg);
+}
+```
+- **العنصر المميز:** نجمة ثمانية من مربعين متراكبين (`.star{width:28px;height:28px;background:var(--gold)} .star::after{content:"";position:absolute;inset:0;background:inherit;transform:rotate(45deg)}`) كفواصل وبولتس، وإطار صور على شكل قوس محراب مدبب (`clip-path:polygon(50% 0,100% 22%,100% 100%,0 100%,0 22%)`).
+- **الهيرو:** أزرق ليلي سادة (من غير تدرجات بنفسجي)، والمنتج جوه قوس المحراب، والعنوان بخط Amiri الدهبي.
+- **ملاحظة:** الثيم ده موسمي. استخدمه في رمضان والعيد، أو لما المنتج ديني أصلًا.
+
+### ثيم 12: لوك بوك (Lookbook)
+**ينفع لـ:** الملابس، والعبايات، والشنط، والأحذية، والإكسسوارات اليومية.
+**الإحساس:** كتالوج أزياء: أبيض كتير، وخط ضخم جنب خط رفيع، والصورة هي البطل.
+```html
+<link href="https://fonts.googleapis.com/css2?family=Zain:wght@200;800&family=Mada:wght@400;500&display=swap" rel="stylesheet">
+```
+```css
+:root{
+  --font-display:"Zain",sans-serif; --font-body:"Mada",sans-serif;
+  --bg:#fafaf7; --surface:#ffffff; --ink:#111111; --muted:#6b6b6b;
+  --poppy:#d63a22; --line:#e2e2dc;
+  --radius:0; --border:1px solid var(--ink);
+  --cta:var(--ink); --cta-ink:#ffffff;
+}
+```
+- **العنصر المميز:** تباين الوزن في نفس العنوان (كلمة بـZain 800 وجنبها كلمة بـZain 200)، وكلمة بالطول على جنب الصورة (`writing-mode:vertical-rl`)، وشيبس المقاسات والألوان ببوردر رفيع، والمختار يتملي أسود.
+- **الهيرو:** صورة طولية (4:5) بعرض الشاشة، وتحتها الاسم والسعر في سطرين. ولو مفيش صورة، عنوان طباعي ضخم من غير أي شكل وهمي.
+- **ملاحظة:** الأحمر للشارة بس («خصم»). زرار الطلب أسود.
+
+### ثيم 13: أليف (Pets)
+**ينفع لـ:** أكل ومستلزمات القطط والكلاب، والألعاب، والأطواق، والفرشات.
+**الإحساس:** دافي وودود: بسكوت، وشوكولاتة، وطوق ملون.
+```html
+<link href="https://fonts.googleapis.com/css2?family=Playpen+Sans+Arabic:wght@500;700&family=Vazirmatn:wght@400;600&display=swap" rel="stylesheet">
+```
+```css
+:root{
+  --font-display:"Playpen Sans Arabic",sans-serif; --font-body:"Vazirmatn",sans-serif;
+  --bg:#fff8ee; --surface:#f6e7cf; --ink:#3a2618; --muted:#6e5a4a;
+  --teal:#0f7a72; --coral:#ff7a59; --line:#ead7b8;
+  --radius:16px; --border:2px solid var(--ink);
+  --cta:var(--teal); --cta-ink:#ffffff;
+}
+```
+- **العنصر المميز:** السعر على «تاج طوق» (مستطيل دايري بخرم صغير فوق: `border-radius:18px` و`::before` دايرة بلون الخلفية)، وبولتس على شكل أثر قدم (SVG صغير).
+- **الهيرو:** خلفية بسكوتي، والمنتج جوه دايرة كبيرة، والعنوان بخط Playpen.
+
+### ثيم 14: مراية (Beauty)
+**ينفع لـ:** المكياج، والعناية بالبشرة والشعر، والأدوات النسائية (من غير Claims طبية أو نتائج مضمونة).
+**الإحساس:** تسريحة ومراية: نبيتي عميق، ووردي بودرة، وتفاصيل رفيعة.
+```html
+<link href="https://fonts.googleapis.com/css2?family=Badeen+Display&family=Readex+Pro:wght@300;400;600&display=swap" rel="stylesheet">
+```
+```css
+:root{
+  --font-display:"Badeen Display",serif; --font-body:"Readex Pro",sans-serif;
+  --bg:#fbf3f1; --surface:#ffffff; --ink:#2a1418; --muted:#7a5a5f;
+  --wine:#5a1a2b; --blush:#f3d6cf; --rosegold:#c98b7a; --line:#ecd3cc;
+  --radius:999px; --border:1px solid var(--rosegold);
+  --cta:var(--wine); --cta-ink:#ffffff;
+}
+```
+- **العنصر المميز:** إطارات بيضاوية زي المراية بخطين رفيعين (`border-radius:50%;box-shadow:0 0 0 6px var(--bg),0 0 0 7px var(--rosegold)`)، ونقط درجات اللون (swatches) لو المنتج ليه درجات.
+- **الهيرو:** المنتج جوه مراية بيضاوية، والعنوان بخط Badeen، وزرار نبيتي.
+- **ملاحظة:** `--radius:999px` للزراير والشيبس بس، والكروت تفضل بزوايا خفيفة.
+
 ## 5. اختيار الثيم حسب المنتج
 
 | نوع المنتج | الثيم الأول | البديل |
@@ -203,6 +335,13 @@
 | عطور، ساعات، هدايا | ليل ونحاس | صيدلية |
 | أطفال، ألعاب، مدرسة | ملعب | ملصق السوق |
 | تريند، واو، عرض قوي، سعر رخيص | ملصق السوق | حسب المنتج |
+| تراث، بخور، دلال وقهوة، مجالس | سدو | ليل ونحاس |
+| رياضة، مساج، لياقة | نادي | مخطط |
+| رحلات وكشتة، مراتب هوائية، منافيخ، تخييم | مخيّم | أسفلت |
+| سجاد صلاة، سماعات قرآن، زينة رمضان والعيد | فانوس | ليل ونحاس |
+| ملابس، عبايات، شنط، أحذية | لوك بوك | مراية |
+| مستلزمات قطط وكلاب | أليف | ملعب |
+| مكياج، عناية بالبشرة والشعر | مراية | صيدلية |
 
 - **لو المستخدم عنده ألوان براند،** ألوانه تحل محل ألوان الثيم، والخطوط والعنصر المميز يفضلوا زي ما هما.
 - **لو عمل أكتر من صفحة ورا بعض،** ماتكررش نفس الثيم مرتين ورا بعض إلا لو هو طلب كده أو المنتجات من نفس البراند.
